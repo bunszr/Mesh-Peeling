@@ -70,3 +70,11 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+Assets/AmplifyShaderEditor/
+Assets/AmplifyShaderEditor.meta
+Assets/Plugins/Sirenix/
+Assets/Plugins/Sirenix.meta
+Assets/Demigiant/
+Assets/Demigiant.meta
+Assets/Resources/DOTweenSettings.asset
+Assets/Resources/DOTweenSettings.asset.meta
