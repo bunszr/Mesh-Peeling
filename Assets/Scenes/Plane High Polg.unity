@@ -319,7 +319,8 @@ MonoBehaviour:
   currPeelingShellMesh: {fileID: 0}
   shellCenterT: {fileID: 1264888936}
   cubeBounds: {fileID: 0}
-  delay: 0.1
+  delay: 0.4
+  insadeTriangleIndices: 
 --- !u!23 &163130687
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -801,6 +802,7 @@ MonoBehaviour:
   shellCenterT: {fileID: 1034423963}
   cubeBounds: {fileID: 0}
   delay: 0.1
+  insadeTriangleIndices: 
 --- !u!23 &772979186
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -873,8 +875,9 @@ MonoBehaviour:
   uvs: []
   uvs2ToClip: []
   triangles: 
+  originalTriangles: 
   mesh: {fileID: 0}
-  show: 0
+  trianglesExtraDatas: []
 --- !u!4 &838322677 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 016e632411d72de47b0d0dcab61795df,
@@ -1389,10 +1392,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   peelingMesh: {fileID: 838322674}
   vertices: []
-  uvs: []
-  uvs2: []
   triangles: 
   mesh: {fileID: 0}
+  trianglesExtraDatas: []
 --- !u!23 &1894800017
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1579,8 +1581,9 @@ MonoBehaviour:
   uvs: []
   uvs2ToClip: []
   triangles: 
+  originalTriangles: 
   mesh: {fileID: 0}
-  show: 0
+  trianglesExtraDatas: []
 --- !u!114 &2076920354
 MonoBehaviour:
   m_ObjectHideFlags: 0
