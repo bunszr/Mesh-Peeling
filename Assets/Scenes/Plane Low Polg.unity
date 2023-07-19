@@ -317,8 +317,8 @@ MonoBehaviour:
   shellMeshPrefab: {fileID: 8481626815968154656, guid: 93baa18bff62a0040bc7b2e2608259f0,
     type: 3}
   currPeelingShellMesh: {fileID: 0}
-  shellCenterT: {fileID: 1264888936}
   cubeBounds: {fileID: 0}
+  shellCenterT: {fileID: 1264888936}
   delay: 0.4
   insadeTriangleIndices: 
 --- !u!23 &163130687
@@ -594,8 +594,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 386336403}
-  m_LocalRotation: {x: -0, y: -1, z: -0, w: -0.00000035762784}
-  m_LocalPosition: {x: -0.099, y: 0, z: 1.614}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -1.306}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -620,7 +620,9 @@ MonoBehaviour:
   speed: 0.2
   shellCenterSpeed: 0.05
   cutter2: {fileID: 163130686}
+  shellCenterT: {fileID: 1264888936}
   angleSpeed: 0
+  shellCenterAngleSpeed: 40
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -765,8 +767,8 @@ MonoBehaviour:
   shellMeshPrefab: {fileID: 2562082612484738521, guid: df9b3512f5469b44fbe8f24ab9ddb5ee,
     type: 3}
   currPeelingShellMesh: {fileID: 0}
-  shellCenterT: {fileID: 1034423963}
   cubeBounds: {fileID: 0}
+  shellCenterT: {fileID: 0}
   delay: 0.1
   insadeTriangleIndices: 
 --- !u!23 &772979186
@@ -1213,7 +1215,12 @@ MonoBehaviour:
   speed: 0.4
   shellCenterSpeed: 0.04
   cutter2: {fileID: 772979185}
+  initialShellCenterLocalPos: {x: 0, y: 0, z: 0}
+  hasPeeling: 0
+  shellCenterOffset: {x: 0, y: 0, z: 0}
+  initialRot: {x: 0, y: 0, z: 0, w: 0}
   angleSpeed: 4
+  angle: 0
   offsetRot: {x: 0, y: -90, z: 0}
 --- !u!1 &1857654659
 GameObject:
