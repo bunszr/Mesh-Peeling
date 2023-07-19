@@ -10,11 +10,6 @@ public class PeelingMesh : PeelingMeshBase
 
     private void Start()
     {
-        MeshFilter meshFilter = GetComponent<MeshFilter>();
-        vertices = meshFilter.mesh.vertices;
-        triangles = meshFilter.mesh.triangles;
-        mesh = meshFilter.mesh;
-
         trianglesExtraDatas = new Data[triangles.Length];
 
         List<int> triangleIndicesInSamePosition = new List<int>();

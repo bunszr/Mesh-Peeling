@@ -36,13 +36,13 @@ public class PeelingShellMesh : PeelingMeshBase
         // }
         // mesh.triangles = triangles;
 
-        for (int i = 0; i < triangles.Length; i += 3)
+        for (int i = 0; i < uvs2ToClip.Length; i++)
         {
-            triangles[i + 0] = 0;
-            triangles[i + 1] = 0;
-            triangles[i + 2] = 0;
+            uvs2ToClip[i] = Vector2.down;
+            uvs2ToClip[i] = Vector2.down;
+            uvs2ToClip[i] = Vector2.down;
         }
-        mesh.triangles = triangles;
+        mesh.uv2 = uvs2ToClip;
     }
 
     [Button]

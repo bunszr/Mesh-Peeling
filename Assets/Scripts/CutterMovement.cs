@@ -40,6 +40,7 @@ public class CutterMovement : MonoBehaviour
     [Range(-300, 300)] public float angleSpeed = 4;
 
     float angle = 0;
+    public float shellCenterAngleSpeed = 30;
 
     private void Update()
     {
@@ -48,7 +49,7 @@ public class CutterMovement : MonoBehaviour
 
         if (hasPeeling)
         {
-            angle += Time.deltaTime * 40;
+            angle += Time.deltaTime * shellCenterAngleSpeed;
             cutter2.shellCenterT.localPosition += Vector3.up * shellCenterSpeed * Time.deltaTime;
             cutter2.shellCenterT.rotation = Quaternion.AngleAxis(angle, transform.right);
         }

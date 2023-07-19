@@ -10,7 +10,6 @@ public abstract class PeelingMeshBase : MonoBehaviour
     public Vector2[] uvs;
     public Vector2[] uvs2ToClip;
     public int[] triangles;
-    public int[] originalTriangles;
 
     public Mesh mesh;
 
@@ -21,7 +20,6 @@ public abstract class PeelingMeshBase : MonoBehaviour
         uvs = meshFilter.mesh.uv;
         uvs2ToClip = meshFilter.mesh.uv2;
         triangles = meshFilter.mesh.triangles;
-        originalTriangles = meshFilter.mesh.triangles;
         mesh = meshFilter.mesh;
     }
 }

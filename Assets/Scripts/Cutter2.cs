@@ -48,7 +48,7 @@ public class Cutter2 : MonoBehaviour
 
         for (int i = 0; i < peelingMesh.triangles.Length; i += 3)
         {
-            if (peelingMesh.triangles[i + 0] == 0 && peelingMesh.triangles[i + 1] == 0 && peelingMesh.triangles[i + 2] == 0)
+            if (peelingMesh.uvs2ToClip[peelingMesh.triangles[i + 0]].y < 0)
             {
                 if (currPeelingShellMesh != null)
                 {
@@ -112,13 +112,13 @@ public class Cutter2 : MonoBehaviour
 
                 nextTime = Time.time + delay;
 
-                currPeelingShellMesh.triangles[i + 0] = peelingMesh.triangles[i + 0];
-                currPeelingShellMesh.triangles[i + 1] = peelingMesh.triangles[i + 1];
-                currPeelingShellMesh.triangles[i + 2] = peelingMesh.triangles[i + 2];
+                currPeelingShellMesh.uvs2ToClip[peelingMesh.triangles[i + 0]] = Vector2.up;
+                currPeelingShellMesh.uvs2ToClip[peelingMesh.triangles[i + 1]] = Vector2.up;
+                currPeelingShellMesh.uvs2ToClip[peelingMesh.triangles[i + 2]] = Vector2.up;
 
-                peelingMesh.triangles[i + 0] = 0;
-                peelingMesh.triangles[i + 1] = 0;
-                peelingMesh.triangles[i + 2] = 0;
+                peelingMesh.uvs2ToClip[peelingMesh.triangles[i + 0]] = Vector2.down;
+                peelingMesh.uvs2ToClip[peelingMesh.triangles[i + 1]] = Vector2.down;
+                peelingMesh.uvs2ToClip[peelingMesh.triangles[i + 2]] = Vector2.down;
             }
         }
 
@@ -137,46 +137,85 @@ public class Cutter2 : MonoBehaviour
         if (currPeelingShellMesh != null)
         {
             currPeelingShellMesh.mesh.vertices = currPeelingShellMesh.vertices;
-            currPeelingShellMesh.mesh.triangles = currPeelingShellMesh.triangles;
+            currPeelingShellMesh.mesh.uv2 = currPeelingShellMesh.uvs2ToClip;
         }
 
 
-        peelingMesh.mesh.triangles = peelingMesh.triangles;
+        peelingMesh.mesh.uv2 = peelingMesh.uvs2ToClip;
+    }
+
+    public void Method(int lastThreeVertIndex)
+    {
+        int[] sameVertexIndices = peelingMesh.trianglesExtraDatas[lastThreeVertIndex].sameVertexIndices;
+        for (int i = 0; i < sameVertexIndices.Length; i++)
+        {
+            for (int j = 0; j < LengthInsadeTriangleIndices; j++)
+            {
+                int vertIndexB = peelingMesh.triangles[insadeTriangleIndices[j]];
+                if (sameVertexIndices[i] == vertIndexB)
+                {
+                    peelingMesh.vertices[lastThreeVertIndex] = currPeelingShellMesh.vertices[vertIndexB];
+                }
+            }
+        }
     }
 
     private void NewMethod(int i)
     {
         for (int currThreeIndicesIndex = i; currThreeIndicesIndex < i + 3; currThreeIndicesIndex++)
         {
-            int vertIndex = peelingMesh.originalTriangles[currThreeIndicesIndex];
-            int[] sameVertexIndices = peelingMesh.trianglesExtraDatas[currThreeIndicesIndex].sameVertexIndices;
-
-            // Vector3 p = peelingMesh.transform.localToWorldMatrix.MultiplyPoint3x4(peelingMesh.vertices[peelingMesh.originalTriangles[currThreeIndicesIndex]]);
-            // Debug.DrawLine(p, p + Vector3.up * .01f, Color.red);
-
-            for (int j = 0; j < sameVertexIndices.Length; j++)
-            {
-                for (int k = 0; k < LengthInsadeTriangleIndices; k++)
-                {
-                    int vertIndexB = peelingMesh.originalTriangles[insadeTriangleIndices[k]];
-                    // Debug.Log(array[j] + " = " + peelingMesh.originalTriangles[insadeTriangleIndices[k]]);
-                    if (sameVertexIndices[j] == vertIndexB && vertIndex != sameVertexIndices[j])
-                    {
-                        peelingMesh.vertices[vertIndex] = currPeelingShellMesh.vertices[vertIndexB];
-                        // Vector3 pA = currPeelingShellMesh.transform.localToWorldMatrix.MultiplyPoint3x4(currPeelingShellMesh.vertices[peelingMesh.originalTriangles[currThreeIndicesIndex]]);
-                        // Debug.DrawLine(pA + new Vector3(.05f, .05f), pA, Color.red);
-                        // Debug.DrawLine(pB + new Vector3(-.05f, .05f), pB, Color.yellow);
-
-                    }
-                }
-                // VISUALİZE SAME VERTEX INDIES IS CORRECT
-                // float angle = j / (float)sameVertexIndices.Length * 360f;
-                // Vector3 t = Quaternion.AngleAxis(angle, Vector3.up) * new Vector3(0, 1, 1) * .01f;
-                // Vector3 pB = currPeelingShellMesh.transform.localToWorldMatrix.MultiplyPoint3x4(currPeelingShellMesh.vertices[sameVertexIndices[j]]);
-                // Debug.DrawLine(pB, pB + t, Color.red);
-            }
+            Method(currThreeIndicesIndex);
         }
     }
+
+
+
+    // private void NewMethod(int i)
+    // {
+    //     for (int currThreeIndicesIndex = i; currThreeIndicesIndex < i + 3; currThreeIndicesIndex++)
+    //     {
+    //         int vertIndex = peelingMesh.originalTriangles[currThreeIndicesIndex];
+    //         int[] sameVertexIndices = peelingMesh.trianglesExtraDatas[currThreeIndicesIndex].sameVertexIndices;
+
+    //         // Vector3 p = peelingMesh.transform.localToWorldMatrix.MultiplyPoint3x4(peelingMesh.vertices[peelingMesh.originalTriangles[currThreeIndicesIndex]]);
+    //         // Debug.DrawLine(p, p + Vector3.up * .01f, Color.red);
+
+    //         // Vector3 total = Vector3.zero;
+    //         // for (int j = 0; j < sameVertexIndices.Length; j++)
+    //         // {
+    //         //     total += currPeelingShellMesh.vertices[sameVertexIndices[j]];
+    //         // }
+    //         // Vector3 mid = total / sameVertexIndices.Length;
+
+    //         for (int j = 0; j < sameVertexIndices.Length; j++)
+    //         {
+    //             for (int k = 0; k < LengthInsadeTriangleIndices; k++)
+    //             {
+    //                 int vertIndexB = peelingMesh.originalTriangles[insadeTriangleIndices[k]];
+    //                 // Debug.Log(array[j] + " = " + peelingMesh.originalTriangles[insadeTriangleIndices[k]]);
+    //                 if (sameVertexIndices[j] == vertIndexB)
+    //                 {
+    //                     // Vector3 world = currPeelingShellMesh.transform.localToWorldMatrix.MultiplyPoint3x4(currPeelingShellMesh.vertices[vertIndexB]);
+    //                     // Vector3 shellLocal = shellCenterT.transform.localToWorldMatrix.MultiplyPoint3x4(world);
+    //                     // enterShellCenterTLocalPoints[vertIndex] = shellLocal;
+
+    //                     peelingMesh.vertices[vertIndex] = currPeelingShellMesh.vertices[vertIndexB];
+
+    //                     // Vector3 pA = currPeelingShellMesh.transform.localToWorldMatrix.MultiplyPoint3x4(currPeelingShellMesh.vertices[peelingMesh.originalTriangles[currThreeIndicesIndex]]);
+    //                     // Debug.DrawLine(pA + new Vector3(.05f, .05f), pA, Color.red);
+    //                     // Debug.DrawLine(pB + new Vector3(-.05f, .05f), pB, Color.yellow);
+
+    //                 }
+    //             }
+    //             // VISUALİZE SAME VERTEX INDIES IS CORRECT
+    //             // float angle = j / (float)sameVertexIndices.Length * 360f;
+    //             // Vector3 t = Quaternion.AngleAxis(angle, Vector3.up) * new Vector3(0, 1, 1) * .01f;
+    //             // Vector3 pB = currPeelingShellMesh.transform.localToWorldMatrix.MultiplyPoint3x4(currPeelingShellMesh.vertices[sameVertexIndices[j]]);
+    //             // Debug.DrawLine(pB, pB + t, Color.red);
+    //         }
+    //     }
+    // }
+
 
     // private void NewMethod(int i)
     // {
