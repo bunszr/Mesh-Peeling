@@ -27,16 +27,8 @@ public class Cutter2 : MonoBehaviour
     float defaultTotalEdgeSqrDst;
 
     // NativeList<int> insadeTriangleIndices;
-    public List<int> insadeTriangleIndices;
+    public List<int> insadeTriangleIndices = new List<int>();
     public int LengthInsadeTriangleIndices => insadeTriangleIndices.Count;
-
-    private void Start()
-    {
-        defaultTotalEdgeSqrDst = Vector3.SqrMagnitude(peelingMesh.vertices[peelingMesh.triangles[0]] - peelingMesh.vertices[peelingMesh.triangles[1]]) + Vector3.SqrMagnitude(peelingMesh.vertices[peelingMesh.triangles[1]] - peelingMesh.vertices[peelingMesh.triangles[2]]) + Vector3.SqrMagnitude(peelingMesh.vertices[peelingMesh.triangles[2]] - peelingMesh.vertices[peelingMesh.triangles[0]]);
-
-        // insadeTriangleIndices = new NativeList<int>(Allocator.Persistent);
-        insadeTriangleIndices = new List<int>();
-    }
 
     private void Update()
     {

@@ -467,12 +467,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff6b52a3d2ff9fd41a983ab51e100cdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  peelingMesh: {fileID: 838322674}
-  shellMeshPrefab: {fileID: 8481626815968154656, guid: 93baa18bff62a0040bc7b2e2608259f0,
-    type: 3}
-  currPeelingShellMesh: {fileID: 0}
-  shellCenterT: {fileID: 57146193}
-  delay: 0.2
 --- !u!1 &218093234
 GameObject:
   m_ObjectHideFlags: 0
@@ -866,6 +860,22 @@ MonoBehaviour:
   thisMeshIsSave: 1
   meshToSave:
   - {fileID: 838322679}
+--- !u!114 &838322681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 838322673}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 399a170ca8050734795a71091c012e86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  subdivisionX: 5
+  subdivisionY: 1
+  subdivisionZ: 5
+  showBounds: 0
 --- !u!1001 &843243425
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1215,13 +1225,13 @@ MonoBehaviour:
   speed: 0.4
   shellCenterSpeed: 0.04
   cutter2: {fileID: 772979185}
-  initialShellCenterLocalPos: {x: 0, y: 0, z: 0}
-  hasPeeling: 0
-  shellCenterOffset: {x: 0, y: 0, z: 0}
-  initialRot: {x: 0, y: 0, z: 0, w: 0}
+  shellCenterT: {fileID: 0}
   angleSpeed: 4
-  angle: 0
   offsetRot: {x: 0, y: -90, z: 0}
+  shellCenterAngleSpeed: 30
+  smoothTime: 0.2
+  rayDir: {x: 0, y: 0, z: 1}
+  pressed: 0
 --- !u!1 &1857654659
 GameObject:
   m_ObjectHideFlags: 0
