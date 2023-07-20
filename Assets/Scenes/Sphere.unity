@@ -162,10 +162,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 637055b430ae8f349b4d9b5188e8f16c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  subdivisionX: 2
-  subdivisionY: 2
-  subdivisionZ: 2
-  p: {x: 0, y: 0, z: 0}
 --- !u!65 &601274248
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -387,7 +383,7 @@ MonoBehaviour:
   peelingMesh: {fileID: 2076920353}
   shellMeshPrefab: {fileID: 2562082612484738521, guid: df9b3512f5469b44fbe8f24ab9ddb5ee,
     type: 3}
-  currPeelingShellMesh: {fileID: 0}
+  currShellMesh: {fileID: 0}
   cubeBounds: {fileID: 0}
   shellCenterT: {fileID: 1034423963}
   delay: 0.4
@@ -626,7 +622,8 @@ MonoBehaviour:
   shellCenterAngleSpeed: 40
   smoothTime: 0.2
   rayDir: {x: 0, y: 0, z: 1}
-  pressed: 0
+  pressed: 1
+  useMouse: 0
 --- !u!1 &1857654659
 GameObject:
   m_ObjectHideFlags: 0
@@ -755,11 +752,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 589930528242deb4881cc9111acca799, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  peelingMesh: {fileID: 0}
-  vertices: []
-  triangles: 
-  mesh: {fileID: 0}
-  trianglesExtraDatas: []
 --- !u!23 &1894800017
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -946,10 +938,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 703f8e1545c4c594a896122e03b48309, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vertices: []
-  uvs: []
-  uvs2ToClip: []
-  triangles: 
   mesh: {fileID: 0}
   trianglesExtraDatas: []
 --- !u!114 &2076920354

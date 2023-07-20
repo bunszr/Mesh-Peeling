@@ -68,7 +68,7 @@ public class MeshSplitter : MonoBehaviour
                     Vector3 v = peelingMesh.vertices[peelingMesh.triangles[i]];
                     for (int k = 0; k < dataArray[j].vertexIndices.Count; k++)
                     {
-                        float sqrDst = Vector3.SqrMagnitude(v - peelingMesh.vertices[dataArray[j].vertexIndices[k]]);
+                        float sqrDst = Vector3.SqrMagnitude(v - (Vector3)peelingMesh.vertices[dataArray[j].vertexIndices[k]]);
                         if (sqrDst < .001f)
                         {
                             sameVertexIndices.Add(dataArray[j].vertexIndices[k]);

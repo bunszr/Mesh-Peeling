@@ -24,8 +24,8 @@ public class CutterMovement : MonoBehaviour
     void OnStartPeeling()
     {
         // cutter2.shellCenterT.DOLocalRotate(Vector3.right * 360f, 3).SetRelative(true).SetEase(Ease.Linear).SetLoops(-1, LoopType.Restart).From(Vector3.zero);
-        cutter2.currPeelingShellMesh.transform.localPosition = initialShellCenterLocalPos;
-        cutter2.currPeelingShellMesh.transform.rotation = transform.rotation;
+        cutter2.currShellMesh.transform.localPosition = initialShellCenterLocalPos;
+        cutter2.currShellMesh.transform.rotation = transform.rotation;
         angle = 0;
         hasPeeling = true;
     }
@@ -48,8 +48,8 @@ public class CutterMovement : MonoBehaviour
         if (hasPeeling)
         {
             angle += Time.deltaTime * shellCenterAngleSpeed;
-            cutter2.currPeelingShellMesh.transform.localPosition += Vector3.up * shellCenterSpeed * Time.deltaTime;
-            cutter2.currPeelingShellMesh.transform.rotation = Quaternion.AngleAxis(angle, transform.right);
+            cutter2.currShellMesh.transform.localPosition += Vector3.up * shellCenterSpeed * Time.deltaTime;
+            cutter2.currShellMesh.transform.rotation = Quaternion.AngleAxis(angle, transform.right);
         }
     }
 }

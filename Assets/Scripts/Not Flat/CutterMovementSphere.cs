@@ -39,8 +39,8 @@ public class CutterMovementSphere : MonoBehaviour
 
     void OnStartPeeling()
     {
-        cutter2.currPeelingShellMesh.transform.localPosition = shellCenterT.localPosition;
-        cutter2.currPeelingShellMesh.transform.localRotation = shellCenterT.localRotation;
+        cutter2.currShellMesh.transform.localPosition = shellCenterT.localPosition;
+        cutter2.currShellMesh.transform.localRotation = shellCenterT.localRotation;
         angle = 0;
         hasPeeling = true;
     }
@@ -52,14 +52,17 @@ public class CutterMovementSphere : MonoBehaviour
 
     public Vector3 rayDir = Vector3.forward;
     public bool pressed = false;
+    public bool useMouse = true;
 
     private void Update()
     {
         RaycastHit hit = new RaycastHit();
         if (Input.GetMouseButton(0) || pressed)
         {
-            // if (Utility.RaycastWithRay(new Ray(Vector3.back * 2, rayDir), Camera.main, out hit).collider != null)
-            if (Utility.RaycastWithCam(Camera.main, out hit).collider != null)
+            if (useMouse) Utility.RaycastWithCam(Camera.main, out hit);
+            else Utility.RaycastWithRay(new Ray(Vector3.back * 2, rayDir), Camera.main, out hit);
+
+            if (hit.collider != null)
             {
                 transform.localPosition = Vector3.SmoothDamp(transform.localPosition, hit.point, ref vel, smoothTime);
                 transform.rotation = Quaternion.FromToRotation(-Vector3.forward, hit.normal) * Quaternion.Euler(offsetRot);
@@ -74,8 +77,8 @@ public class CutterMovementSphere : MonoBehaviour
         if (hasPeeling)
         {
             angle += Time.deltaTime * shellCenterAngleSpeed;
-            cutter2.currPeelingShellMesh.transform.localPosition += Vector3.back * shellCenterSpeed * Time.deltaTime;
-            cutter2.currPeelingShellMesh.transform.rotation = Quaternion.AngleAxis(angle, transform.up);
+            cutter2.currShellMesh.transform.localPosition += Vector3.back * shellCenterSpeed * Time.deltaTime;
+            cutter2.currShellMesh.transform.rotation = Quaternion.AngleAxis(angle, transform.up);
         }
     }
 }

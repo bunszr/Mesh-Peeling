@@ -29,39 +29,12 @@ public class PeelingShellMesh : PeelingMeshBase
     [Button]
     public void tri()
     {
-        // for (int i = 0; i < triangles.Length; i += 3)
-        // {
-        //     triangles[i + 1] = triangles[i];
-        //     triangles[i + 2] = triangles[i];
-        // }
-        // mesh.triangles = triangles;
-
         for (int i = 0; i < uvs2ToClip.Length; i++)
         {
             uvs2ToClip[i] = Vector2.down;
             uvs2ToClip[i] = Vector2.down;
             uvs2ToClip[i] = Vector2.down;
         }
-        mesh.uv2 = uvs2ToClip;
-    }
-
-    [Button]
-    public void Compare()
-    {
-        PeelingMesh peelingMesh = FindObjectOfType<PeelingMesh>();
-        for (int i = 0; i < triangles.Length; i += 3)
-        {
-            if (triangles[i + 0] == peelingMesh.triangles[i + 0] && triangles[i + 1] == peelingMesh.triangles[i + 1] && triangles[i + 2] == peelingMesh.triangles[i + 2])
-            {
-
-            }
-            else
-            {
-                Debug.LogError("asdasd");
-            }
-
-
-        }
-        mesh.triangles = triangles;
+        mesh.SetUVs(1, uvs2ToClip);
     }
 }
