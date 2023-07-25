@@ -60,7 +60,7 @@ public class CutterMovementSphere : MonoBehaviour
         if (Input.GetMouseButton(0) || pressed)
         {
             if (useMouse) Utility.RaycastWithCam(Camera.main, out hit);
-            else Utility.RaycastWithRay(new Ray(Vector3.back * 2, rayDir), Camera.main, out hit);
+            else Utility.RaycastWithRay(new Ray(Vector3.back * 2, rayDir), out hit);
 
             if (hit.collider != null)
             {

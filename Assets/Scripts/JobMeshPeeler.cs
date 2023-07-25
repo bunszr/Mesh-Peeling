@@ -24,6 +24,8 @@ public struct JobMeshPeeler : IJobFor
     [ReadOnly] public float3 cutterCenterPosition;
     [ReadOnly] public float cutterSqrRadius;
 
+    [NativeDisableParallelForRestriction, WriteOnly] public NativeList<int> peelingTriIndices;
+
     [NativeDisableParallelForRestriction, WriteOnly] public NativeArray<bool> hasInsadeResult;
 
     public void Execute(int index)
@@ -55,6 +57,10 @@ public struct JobMeshPeeler : IJobFor
         uvs2ToClip[triangles[triIndexA]] = new float2(0, -1);
         uvs2ToClip[triangles[triIndexB]] = new float2(0, -1);
         uvs2ToClip[triangles[triIndexC]] = new float2(0, -1);
+
+        peelingTriIndices.Add(triIndexA);
+        peelingTriIndices.Add(triIndexB);
+        peelingTriIndices.Add(triIndexC);
 
         hasInsadeResult[0] = true;
     }

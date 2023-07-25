@@ -1,10 +1,11 @@
-using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using Random = UnityEngine.Random;
+using Unity.Collections;
 
 public class PeelingMesh : PeelingMeshBase
 {
-    public TriangleExtraData[] trianglesExtraDatas;
+    public NativeMultiHashMap<int, int> multiHashMapVertIndexToSameVerticesIndices;
+
+    private void OnDisable()
+    {
+        multiHashMapVertIndexToSameVerticesIndices.Dispose();
+    }
 }

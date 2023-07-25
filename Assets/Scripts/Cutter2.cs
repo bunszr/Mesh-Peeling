@@ -25,15 +25,14 @@ public class Cutter2 : MonoBehaviour
     public event System.Action onStartPeling;
     public event System.Action onEndPeling;
 
-    float defaultTotalEdgeSqrDst;
-
-    NativeList<int> insadeTriangleIndices;
+    NativeList<int> peelingTriIndices;
+    public int maxPeelingTriangle = 70;
 
     private void Start()
     {
         currShellMesh = Instantiate<PeelingShellMesh>(shellMeshPrefab, shellCenterT.transform.position, shellCenterT.transform.rotation, transform.parent);
         currShellMesh.tri();
-        insadeTriangleIndices = new NativeList<int>(Allocator.Persistent);
+        peelingTriIndices = new NativeList<int>(Allocator.Persistent);
     }
 
     private void Update()
@@ -55,14 +54,12 @@ public class Cutter2 : MonoBehaviour
             shellWorldToLocalMatrix = currShellMesh.transform.worldToLocalMatrix,
             cutterCenterPosition = transform.position,
             cutterSqrRadius = Mathf.Pow(transform.localScale.x * .5f, 2),
+            peelingTriIndices = peelingTriIndices,
             hasInsadeResult = hasInsadeResult,
         };
 
-        JobHandle jobHandle = jobMeshPeeler.ScheduleParallel(peelingMesh.triangles.Length / 3, 102, default);
-        jobHandle.Complete();
-
-        // JobHandle jobHandle = jobUvSetter.Schedule(peelingMesh.triangles.Length / 3, default);
-        // jobHandle.Complete();
+        JobHandle jobHandleMeshPeeler = jobMeshPeeler.ScheduleParallel(peelingMesh.triangles.Length / 3, 102, default);
+        jobHandleMeshPeeler.Complete();
 
 
         hasPeelingInFrame = hasInsadeResult[0];
@@ -72,9 +69,11 @@ public class Cutter2 : MonoBehaviour
             {
                 state = State.Start;
                 onStartPeling?.Invoke();
-                insadeTriangleIndices.Clear();
                 Debug.Log("Start");
             }
+
+            LimitPeelingTriIndicesLength();
+            RunJobVertexSnapper(jobHandleMeshPeeler);
 
             if (currShellMesh != null)
             {
@@ -104,48 +103,37 @@ public class Cutter2 : MonoBehaviour
 
     private void OnDisable()
     {
-        insadeTriangleIndices.Dispose();
+        peelingTriIndices.Dispose();
     }
 
-    // public void SnapToPreviousVertices(int i)
-    // {
-    //     if (LengthInsadeTriangleIndices >= 81)
-    //     {
-    //         insadeTriangleIndices.RemoveAt(0);
-    //         insadeTriangleIndices.RemoveAt(0);
-    //         insadeTriangleIndices.RemoveAt(0);
-    //     }
-    //     if (LengthInsadeTriangleIndices > 3)
-    //     {
-    //         Snap(i);
-    //     }
+    void LimitPeelingTriIndicesLength()
+    {
+        int extraTriangleCount = peelingTriIndices.Length / 3 - maxPeelingTriangle;
+        if (extraTriangleCount > 0)
+        {
+            for (int i = 0; i < extraTriangleCount; i++)
+            {
+                peelingTriIndices.RemoveAt(0);
+                peelingTriIndices.RemoveAt(0);
+                peelingTriIndices.RemoveAt(0);
+            }
+        }
+        // Debug.Log("peelingTriIndices Length = " + peelingTriIndices.Length);
+    }
 
-    //     insadeTriangleIndices.Add(i + 0);
-    //     insadeTriangleIndices.Add(i + 1);
-    //     insadeTriangleIndices.Add(i + 2);
-    // }
+    void RunJobVertexSnapper(JobHandle jobHandleMeshPeeler)
+    {
+        JobVertexSnapper jobVertexSnapper = new JobVertexSnapper()
+        {
+            shellTriangles = currShellMesh.triangles,
+            shellVertices = currShellMesh.vertices,
+            shellUvs2ToClip = currShellMesh.uvs2ToClip,
+            multiHashMapVertIndexToSameVerticesIndices = peelingMesh.multiHashMapVertIndexToSameVerticesIndices,
+            peelingTriIndices = peelingTriIndices,
+        };
 
-    // private void Snap(int i)
-    // {
-    //     for (int currThreeIndicesIndex = i; currThreeIndicesIndex < i + 3; currThreeIndicesIndex++)
-    //     {
-    //         SnapSubMethod(currThreeIndicesIndex);
-    //     }
-    // }
-
-    // public void SnapSubMethod(int lastThreeVertIndex)
-    // {
-    //     int[] sameVertexIndices = peelingMesh.trianglesExtraDatas[lastThreeVertIndex].sameVertexIndices;
-    //     for (int i = 0; i < sameVertexIndices.Length; i++)
-    //     {
-    //         for (int j = 0; j < LengthInsadeTriangleIndices; j++)
-    //         {
-    //             int vertIndexB = peelingMesh.triangles[insadeTriangleIndices[j]];
-    //             if (sameVertexIndices[i] == vertIndexB)
-    //             {
-    //                 currShellMesh.vertices[lastThreeVertIndex] = currShellMesh.vertices[vertIndexB];
-    //             }
-    //         }
-    //     }
-    // }
+        JobHandle jobHandle = jobVertexSnapper.ScheduleParallel(peelingTriIndices.Length, 9, jobHandleMeshPeeler);
+        // jobVertexSnapper.Schedule(peelingTriIndices.Length, default).Complete();
+        jobHandle.Complete();
+    }
 }
