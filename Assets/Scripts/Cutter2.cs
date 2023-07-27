@@ -25,20 +25,20 @@ public class Cutter2 : MonoBehaviour
     public event System.Action onStartPeling;
     public event System.Action onEndPeling;
 
-    NativeList<int> peelingTriIndices;
+    Queue<int> peelingTriIndicesNormalQueue = new Queue<int>();
     public int maxPeelingTriangle = 70;
 
     private void Start()
     {
         currShellMesh = Instantiate<PeelingShellMesh>(shellMeshPrefab, shellCenterT.transform.position, shellCenterT.transform.rotation, transform.parent);
         currShellMesh.tri();
-        peelingTriIndices = new NativeList<int>(Allocator.Persistent);
     }
 
     private void Update()
     {
         bool hasPeelingInFrame = false;
 
+        NativeQueue<int> peelingTriIndicesNativeQueue = new NativeQueue<int>(Allocator.TempJob); // it is not working like the normal Queue<T>. See NativeQueue documentation
         NativeArray<bool> hasInsadeResult = new NativeArray<bool>(1, Allocator.TempJob);
 
         JobMeshPeeler jobMeshPeeler = new JobMeshPeeler()
@@ -54,12 +54,16 @@ public class Cutter2 : MonoBehaviour
             shellWorldToLocalMatrix = currShellMesh.transform.worldToLocalMatrix,
             cutterCenterPosition = transform.position,
             cutterSqrRadius = Mathf.Pow(transform.localScale.x * .5f, 2),
-            peelingTriIndices = peelingTriIndices,
+            peelingTriIndicesQueue = peelingTriIndicesNativeQueue.AsParallelWriter(),
             hasInsadeResult = hasInsadeResult,
         };
 
         JobHandle jobHandleMeshPeeler = jobMeshPeeler.ScheduleParallel(peelingMesh.triangles.Length / 3, 102, default);
         jobHandleMeshPeeler.Complete();
+
+        int count = peelingTriIndicesNativeQueue.Count;
+        for (int i = 0; i < count; i++) peelingTriIndicesNormalQueue.Enqueue(peelingTriIndicesNativeQueue.Dequeue());
+        peelingTriIndicesNativeQueue.Dispose();
 
 
         hasPeelingInFrame = hasInsadeResult[0];
@@ -103,19 +107,18 @@ public class Cutter2 : MonoBehaviour
 
     private void OnDisable()
     {
-        peelingTriIndices.Dispose();
     }
 
     void LimitPeelingTriIndicesLength()
     {
-        int extraTriangleCount = peelingTriIndices.Length / 3 - maxPeelingTriangle;
+        int extraTriangleCount = peelingTriIndicesNormalQueue.Count / 3 - maxPeelingTriangle;
         if (extraTriangleCount > 0)
         {
             for (int i = 0; i < extraTriangleCount; i++)
             {
-                peelingTriIndices.RemoveAt(0);
-                peelingTriIndices.RemoveAt(0);
-                peelingTriIndices.RemoveAt(0);
+                peelingTriIndicesNormalQueue.Dequeue();
+                peelingTriIndicesNormalQueue.Dequeue();
+                peelingTriIndicesNormalQueue.Dequeue();
             }
         }
         // Debug.Log("peelingTriIndices Length = " + peelingTriIndices.Length);
@@ -123,17 +126,28 @@ public class Cutter2 : MonoBehaviour
 
     void RunJobVertexSnapper(JobHandle jobHandleMeshPeeler)
     {
+        // NativeArray<int> array = peelingTriIndicesNormalQueue.ToArray(Allocator.TempJob);
+        NativeArray<int> array = new NativeArray<int>(peelingTriIndicesNormalQueue.Count, Allocator.TempJob);
+        for (int i = 0; i < array.Length; i++)
+        {
+            int value = peelingTriIndicesNormalQueue.Dequeue();
+            peelingTriIndicesNormalQueue.Enqueue(value);
+            array[i] = value;
+        }
+
         JobVertexSnapper jobVertexSnapper = new JobVertexSnapper()
         {
             shellTriangles = currShellMesh.triangles,
             shellVertices = currShellMesh.vertices,
             shellUvs2ToClip = currShellMesh.uvs2ToClip,
             multiHashMapVertIndexToSameVerticesIndices = peelingMesh.multiHashMapVertIndexToSameVerticesIndices,
-            peelingTriIndices = peelingTriIndices,
+            peelingTriIndices = array,
         };
 
-        JobHandle jobHandle = jobVertexSnapper.ScheduleParallel(peelingTriIndices.Length, 9, jobHandleMeshPeeler);
+        JobHandle jobHandle = jobVertexSnapper.ScheduleParallel(array.Length, 9, jobHandleMeshPeeler);
         // jobVertexSnapper.Schedule(peelingTriIndices.Length, default).Complete();
         jobHandle.Complete();
+
+        array.Dispose();
     }
 }

@@ -9,7 +9,7 @@ public struct JobVertexSnapper : IJobFor
     [ReadOnly] public NativeArray<int> shellTriangles;
     [ReadOnly] public NativeArray<float2> shellUvs2ToClip;
     [ReadOnly] public NativeMultiHashMap<int, int> multiHashMapVertIndexToSameVerticesIndices;
-    [ReadOnly] public NativeList<int> peelingTriIndices;
+    [ReadOnly] public NativeArray<int> peelingTriIndices;
     [NativeDisableParallelForRestriction] public NativeArray<float3> shellVertices;
 
     public void Execute(int index)
