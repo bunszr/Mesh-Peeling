@@ -96,7 +96,7 @@ public class MeshSplitterPreCompute : MonoBehaviour
             for (int k = 0; k < splitterData.vertexIndices.Count; k++)
             {
                 float sqrDst = Vector3.SqrMagnitude(vertices[i] - vertices[splitterData.vertexIndices[k]]);
-                if (sqrDst < .0001f)
+                if (sqrDst < .000001f)
                 {
                     sameVertexIndices.Add(splitterData.vertexIndices[k]);
                 }

@@ -9,6 +9,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -7511558181221131132, guid: 243699dce2bf990459255a2f612c630d,
         type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 243699dce2bf990459255a2f612c630d,
+        type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 19b464fd9d8ec8444bd934ccf291c65a, type: 2}
@@ -90,24 +95,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 2350786983753231856}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2562082612484738521
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3197210073800904865}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9586dd21d2a2c244e91ef5307d193a80, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  vertices: []
-  uvs: []
-  uvs2ToClip: []
-  triangles: 
-  mesh: {fileID: 0}
-  rb: {fileID: 5602938833459407105}
 --- !u!54 &5602938833459407105
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -124,3 +111,17 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &2562082612484738521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3197210073800904865}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9586dd21d2a2c244e91ef5307d193a80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mesh: {fileID: 0}
+  rb: {fileID: 5602938833459407105}

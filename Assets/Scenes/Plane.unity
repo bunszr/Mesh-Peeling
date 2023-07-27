@@ -176,8 +176,8 @@ MonoBehaviour:
   currShellMesh: {fileID: 0}
   cubeBounds: {fileID: 0}
   shellCenterT: {fileID: 1264888936}
-  delay: 0.4
-  maxPeelingTriangle: 70
+  delay: 0.2
+  maxPeelingTriangle: 300
 --- !u!23 &163130687
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -228,103 +228,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 163130684}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &218093234
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 218093235}
-  - component: {fileID: 218093238}
-  - component: {fileID: 218093237}
-  - component: {fileID: 218093236}
-  m_Layer: 0
-  m_Name: Cube Bound
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &218093235
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 218093234}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.18683, y: 0.18683, z: 0.18683}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 386336404}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &218093236
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 218093234}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6dde8d86ce0cb8742b4b4bab4a5a4e75, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  render: {fileID: 218093237}
---- !u!23 &218093237
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 218093234}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &218093238
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 218093234}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &386336403
 GameObject:
   m_ObjectHideFlags: 0
@@ -335,8 +238,9 @@ GameObject:
   m_Component:
   - component: {fileID: 386336404}
   - component: {fileID: 386336405}
+  - component: {fileID: 386336406}
   m_Layer: 0
-  m_Name: Cutter Movement
+  m_Name: Spatula Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -355,10 +259,9 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 163130685}
-  - {fileID: 218093235}
   - {fileID: 1264888936}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
 --- !u!114 &386336405
 MonoBehaviour:
@@ -372,12 +275,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 186cc2483def6a849b016eb5a29202c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.2
-  shellCenterSpeed: 0.05
   cutter2: {fileID: 163130686}
   shellCenterT: {fileID: 1264888936}
-  angleSpeed: 0
-  shellCenterAngleSpeed: 40
+  speed: 0.4
+  turnSpeed: 4
+  shellPositionSpeed: 0.02
+  shellAngleSpeed: 30
+--- !u!114 &386336406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386336403}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36f5cf5761f577449a614568cff64712, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 72.6
+  amount: 111.1
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -512,23 +429,6 @@ MonoBehaviour:
   thisMeshIsSave: 1
   meshToSave:
   - {fileID: 838322679}
---- !u!114 &838322681
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 838322673}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 399a170ca8050734795a71091c012e86, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  subdivisionX: 5
-  subdivisionY: 1
-  subdivisionZ: 5
-  splitterDataArray: []
-  showBounds: 0
 --- !u!114 &838322686
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -541,9 +441,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60640dca0deb82943a6b78109708de26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  subdivisionX: 3
-  subdivisionY: 3
-  subdivisionZ: 3
+  subdivisionX: 6
+  subdivisionY: 1
+  subdivisionZ: 6
   meshSplitterData: {fileID: 11400000, guid: c4550b22b03629443905d484dae00fbd, type: 2}
   showBounds: 0
 --- !u!1001 &843243425
@@ -556,7 +456,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 016e632411d72de47b0d0dcab61795df,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 016e632411d72de47b0d0dcab61795df,
         type: 3}
@@ -733,5 +633,5 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 386336404}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: -59.34, y: 0, z: 0}
