@@ -9,7 +9,6 @@ public struct JobMeshPeeler : IJobFor
 {
     // For peeling mesh
     [ReadOnly, NativeDisableParallelForRestriction] public NativeArray<float3> vertices;
-    public NativeArray<float2> uvs;
     [NativeDisableParallelForRestriction] public NativeArray<float2> uvs2ToClip;
     [ReadOnly] public NativeArray<int> triangles;
 

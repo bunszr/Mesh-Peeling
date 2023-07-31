@@ -8,6 +8,7 @@ public class KnifeControllerBase : MonoBehaviour
     protected bool hasPeeling;
     protected Vector3 vel;
     protected TransformRecovery transformRecovery;
+    public ShellMeshContainer shellMeshContainer;
 
     public float smoothTime = .1f;
 
@@ -26,7 +27,7 @@ public class KnifeControllerBase : MonoBehaviour
     protected Vector3 hitPointToCheckMovementDirection;
     protected Vector3 upwards = Vector3.left;
 
-    public float ShellMeshRadius => cutter2.currShellMesh.transform.localPosition.magnitude;
+    public float ShellMeshRadius => shellMeshContainer.CurrShellMesh.transform.localPosition.magnitude;
 
     protected virtual void Start()
     {
@@ -47,7 +48,7 @@ public class KnifeControllerBase : MonoBehaviour
 
     public float GetAngleSpeedFromAngleSpeedOfRotater()
     {
-        float radius = cutter2.currShellMesh.transform.localPosition.magnitude;
+        float radius = shellMeshContainer.CurrShellMesh.transform.localPosition.magnitude;
         return Mathf.Abs(rotater.angleSpeed * (rotater.radius / radius));
     }
 }

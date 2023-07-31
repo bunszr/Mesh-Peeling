@@ -115,12 +115,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 6331506168705282646}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9586dd21d2a2c244e91ef5307d193a80, type: 3}
+  m_Script: {fileID: 11500000, guid: 4656049b184558443a7de5f1cfb1e7f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vertices: []
-  uvs: []
-  uvs2ToClip: []
-  triangles: 
-  mesh: {fileID: 0}
   rb: {fileID: -9119933975433163377}
+  mesh: {fileID: 0}

@@ -85,7 +85,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 243699dce2bf990459255a2f612c630d,
         type: 3}
       propertyPath: m_Name
-      value: Smooth Sphre shell mesh Variant
+      value: Sphere Shell Mesh
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 243699dce2bf990459255a2f612c630d, type: 3}
@@ -120,8 +120,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 3197210073800904865}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9586dd21d2a2c244e91ef5307d193a80, type: 3}
+  m_Script: {fileID: 11500000, guid: 4656049b184558443a7de5f1cfb1e7f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mesh: {fileID: 0}
   rb: {fileID: 5602938833459407105}
+  mesh: {fileID: 0}

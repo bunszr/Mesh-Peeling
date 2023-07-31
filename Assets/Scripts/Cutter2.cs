@@ -8,10 +8,10 @@ using UnityEngine;
 public class Cutter2 : MonoBehaviour
 {
     public PeelingMesh peelingMesh;
-    public PeelingShellMesh shellMeshPrefab;
-    public PeelingShellMesh currShellMesh;
+    public ShellMeshContainer shellMeshContainer;
     public CubeBounds cubeBounds;
     public Transform shellCenterT;
+
 
     public float delay = .2f;
     float nextTime;
@@ -30,8 +30,6 @@ public class Cutter2 : MonoBehaviour
 
     private void Start()
     {
-        currShellMesh = Instantiate<PeelingShellMesh>(shellMeshPrefab, shellCenterT.transform.position, shellCenterT.transform.rotation, transform.parent);
-        currShellMesh.tri();
     }
 
     private void Update()
@@ -44,14 +42,13 @@ public class Cutter2 : MonoBehaviour
         JobMeshPeeler jobMeshPeeler = new JobMeshPeeler()
         {
             vertices = peelingMesh.vertices,
-            uvs = peelingMesh.uvs,
             uvs2ToClip = peelingMesh.uvs2ToClip,
             triangles = peelingMesh.triangles,
-            shellVertices = currShellMesh.vertices,
-            shellUvs2ToClip = currShellMesh.uvs2ToClip,
+            shellVertices = shellMeshContainer.CurrShellMesh.vertices,
+            shellUvs2ToClip = shellMeshContainer.CurrShellMesh.uvs2ToClip,
             peelingWorldToLocalMatrix = peelingMesh.transform.worldToLocalMatrix,
             peelingLocalToWorldMatrix = peelingMesh.transform.localToWorldMatrix,
-            shellWorldToLocalMatrix = currShellMesh.transform.worldToLocalMatrix,
+            shellWorldToLocalMatrix = shellMeshContainer.CurrShellMesh.transform.worldToLocalMatrix,
             cutterCenterPosition = transform.position,
             cutterSqrRadius = Mathf.Pow(transform.localScale.x * .5f, 2),
             peelingTriIndicesQueue = peelingTriIndicesNativeQueue.AsParallelWriter(),
@@ -79,10 +76,10 @@ public class Cutter2 : MonoBehaviour
             LimitPeelingTriIndicesLength();
             RunJobVertexSnapper(jobHandleMeshPeeler);
 
-            if (currShellMesh != null)
+            if (shellMeshContainer.CurrShellMesh != null)
             {
-                currShellMesh.mesh.SetVertices(currShellMesh.vertices);
-                currShellMesh.mesh.SetUVs(1, currShellMesh.uvs2ToClip);
+                shellMeshContainer.CurrShellMesh.mesh.SetVertices(shellMeshContainer.CurrShellMesh.vertices);
+                shellMeshContainer.CurrShellMesh.mesh.SetUVs(1, shellMeshContainer.CurrShellMesh.uvs2ToClip);
             }
             peelingMesh.mesh.SetUVs(1, peelingMesh.uvs2ToClip);
 
@@ -94,9 +91,9 @@ public class Cutter2 : MonoBehaviour
             if (state == State.Start && !hasPeelingInFrame)
             {
                 state = State.End;
-                currShellMesh.Throw(transform.forward + transform.up);
-                currShellMesh = Instantiate<PeelingShellMesh>(shellMeshPrefab, shellCenterT.transform.position, shellCenterT.transform.rotation, transform.parent);
-                currShellMesh.tri();
+                // shellMeshContainer.currShellMesh.Throw(transform.forward + transform.up);
+                // shellMeshContainer.Return(shellMeshContainer.currShellMesh);
+                // shellMeshContainer.currShellMesh = shellMeshContainer.Rent();
                 onEndPeling?.Invoke();
                 Debug.Log("end");
             }
@@ -137,9 +134,9 @@ public class Cutter2 : MonoBehaviour
 
         JobVertexSnapper jobVertexSnapper = new JobVertexSnapper()
         {
-            shellTriangles = currShellMesh.triangles,
-            shellVertices = currShellMesh.vertices,
-            shellUvs2ToClip = currShellMesh.uvs2ToClip,
+            shellTriangles = shellMeshContainer.CurrShellMesh.triangles,
+            shellVertices = shellMeshContainer.CurrShellMesh.vertices,
+            shellUvs2ToClip = shellMeshContainer.CurrShellMesh.uvs2ToClip,
             multiHashMapVertIndexToSameVerticesIndices = peelingMesh.multiHashMapVertIndexToSameVerticesIndices,
             peelingTriIndices = array,
         };

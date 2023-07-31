@@ -17,8 +17,8 @@ public class KnifeControllerWithRayDirection : KnifeControllerBase
     protected override void OnStartPeeling()
     {
         base.OnStartPeeling();
-        cutter2.currShellMesh.transform.localPosition = shellCenterT.localPosition;
-        cutter2.currShellMesh.transform.localRotation = shellCenterT.localRotation;
+        shellMeshContainer.CurrShellMesh.transform.localPosition = shellCenterT.localPosition;
+        shellMeshContainer.CurrShellMesh.transform.localRotation = shellCenterT.localRotation;
         shellMeshRotationAngle = 0;
     }
 
@@ -61,8 +61,8 @@ public class KnifeControllerWithRayDirection : KnifeControllerBase
         if (hasPeeling)
         {
             shellMeshRotationAngle += (shellAngleSpeedAdder + Utility.GetAngleSpeedFromSpeed(velocity, ShellMeshRadius) + GetAngleSpeedFromAngleSpeedOfRotater()) * Time.deltaTime;
-            cutter2.currShellMesh.transform.localPosition += Vector3.back * shellCenterSpeed * Time.deltaTime;
-            cutter2.currShellMesh.transform.rotation = Quaternion.AngleAxis(shellMeshRotationAngle, transform.up);
+            shellMeshContainer.CurrShellMesh.transform.localPosition += Vector3.back * shellCenterSpeed * Time.deltaTime;
+            shellMeshContainer.CurrShellMesh.transform.rotation = Quaternion.AngleAxis(shellMeshRotationAngle, transform.up);
         }
     }
 }
