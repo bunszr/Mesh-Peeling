@@ -1,0 +1,22 @@
+{
+  "name": "com.inspiaaa.unityhfsm",
+  "displayName": "UnityHFSM",
+  "description": "A simple yet powerful class based hierarchical finite state machine for Unity3D",
+
+  "version": "1.9.0",
+  "license": "MIT",
+  "keywords": ["fsm", "hierarchical", "state-machine"],
+  "documentationUrl": "https://github.com/Inspiaaa/UnityHFSM",
+
+  "author": {
+    "name": "Inspiaaa",
+    "url": "https://github.com/Inspiaaa"
+  },
+
+  "samples": [
+    {
+      "displayName": "Sample3d",
+      "path": "Samples~/Sample3d"
+    }
+  ]
+}

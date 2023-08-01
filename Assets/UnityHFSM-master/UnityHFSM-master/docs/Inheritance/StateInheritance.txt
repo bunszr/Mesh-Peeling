@@ -1,0 +1,19 @@
+classDiagram
+    StateBase <|-- StringStateBase
+
+    StateBase <|-- ActionState
+    ActionState <|-- StringActionState
+
+    ActionState <|-- State
+    State <|-- StringState
+
+    ActionState <|-- CoState
+    CoState <|-- StringCoState
+
+    StateBase <|-- StateMachine
+    StateMachine <|-- StringStateMachine
+    StateMachine <|-- HybridStateMachine
+    HybridStateMachine <|-- StringHybridStateMachine
+
+
+%% TODO: Add interfaces (IStateMachine, ITriggerable)

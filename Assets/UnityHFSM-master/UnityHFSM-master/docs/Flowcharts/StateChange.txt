@@ -1,0 +1,17 @@
+graph TD
+  Start([State Transition]) --> NeedsExitTime{"Does activeState<br>need exit time"}
+
+  NeedsExitTime -->|No| End([Change State])
+
+  NeedsExitTime -->|Yes| RequestExit["FSM calls<br> activeState.OnExitRequest()"]
+  RequestExit --> IsCanExitDefinined{"Is<br>activeState.canExit<br>defined"}
+  IsCanExitDefinined -->|Yes| CanExitCallsStateCanExit{"Does<br>canExit() return<br>true"}
+  IsCanExitDefinined -->|No| Later
+
+  CanExitCallsStateCanExit -->|Yes| End
+  CanExitCallsStateCanExit -->|No| Later["Later in<br>activeState.OnLogic()"]
+
+  subgraph "Delayed State Change"
+  Later --> CallStateCanExit["fsm.StateCanExit()"]
+  end
+  CallStateCanExit --> End
