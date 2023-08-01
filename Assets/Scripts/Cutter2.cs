@@ -5,11 +5,9 @@ using Unity.Collections;
 using Unity.Jobs;
 using UnityEngine;
 
-public class Cutter2 : MonoBehaviour
+public class Cutter2 : CutterBase
 {
     public PeelingMesh peelingMesh;
-    public ShellMeshContainer shellMeshContainer;
-    public CubeBounds cubeBounds;
     public Transform shellCenterT;
 
 
@@ -21,9 +19,6 @@ public class Cutter2 : MonoBehaviour
     {
         None, Start, End
     }
-
-    public event System.Action onStartPeling;
-    public event System.Action onEndPeling;
 
     Queue<int> peelingTriIndicesNormalQueue = new Queue<int>();
     public int maxPeelingTriangle = 70;

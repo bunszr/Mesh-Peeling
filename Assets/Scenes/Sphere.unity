@@ -670,9 +670,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7891b4f0b47284c4b99e5678e52493c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  peelingMesh: {fileID: 2076920353}
   shellMeshContainer: {fileID: 832924776}
-  cubeBounds: {fileID: 0}
+  peelingMesh: {fileID: 2076920353}
   shellCenterT: {fileID: 1034423963}
   delay: 0.05
   maxPeelingTriangle: 150
@@ -1339,11 +1338,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1730413744}
-  - component: {fileID: 1730413748}
-  - component: {fileID: 1730413746}
-  - component: {fileID: 1730413749}
+  - component: {fileID: 1730413751}
+  - component: {fileID: 1730413750}
+  - component: {fileID: 1730413753}
+  - component: {fileID: 1730413752}
   m_Layer: 0
-  m_Name: Knife Controller
+  m_Name: Knife and Shell Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1367,7 +1367,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 90}
---- !u!114 &1730413746
+--- !u!114 &1730413750
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1376,18 +1376,53 @@ MonoBehaviour:
   m_GameObject: {fileID: 1730413743}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4beeaee4d2dea7458e4a67b88e44a57, type: 3}
+  m_Script: {fileID: 11500000, guid: 0e9fdfd46017b784994c34f9405676bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shellMeshContainer: {fileID: 832924776}
+  runStateOfMovementA: 1
+--- !u!114 &1730413751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1730413743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e93eae8d0505024487ceea335fafe7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  knifeIdleStateData:
+    smoothTimeMovement: 0.16
+    rotationSpeed: 2.4
+  peelingMesh: {fileID: 2076920353}
+  knifeVisual: {fileID: 1559832975}
   smoothTime: 0.2
-  cutter2: {fileID: 772979185}
-  shellCenterT: {fileID: 1034423963}
+  knifeTurnSpeed: 2
+  velocity: 0
+  knifeMovementNoCamRayStateData:
+    pressed: 1
+    rayDir: {x: 0, y: 0, z: 1}
+--- !u!114 &1730413752
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1730413743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7fbb11ccf0e40149926794c113a2e7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cutterBase: {fileID: 772979185}
+  knife: {fileID: 1730413751}
   rotater: {fileID: 2076920354}
+  shellMeshContainer: {fileID: 832924776}
+  shellCenterT: {fileID: 1034423963}
   shellCenterSpeed: 0.05
   shellAngleSpeedAdder: 5
-  knifeTurnSpeed: 2
---- !u!114 &1730413748
+--- !u!114 &1730413753
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1396,41 +1431,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1730413743}
   m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a302edaf697ef042af41acafd5fda77, type: 3}
+  m_Script: {fileID: 11500000, guid: 0afb28ee43784a04b8345bc480dd05c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shellMeshContainer: {fileID: 832924776}
-  smoothTime: 0.1
-  cutter2: {fileID: 772979185}
-  shellCenterT: {fileID: 1034423963}
-  rotater: {fileID: 2076920354}
-  shellCenterSpeed: 0.04
-  shellAngleSpeedAdder: 15
-  knifeTurnSpeed: 2
-  knife: {fileID: 1559832975}
---- !u!114 &1730413749
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1730413743}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb1846d4f3b2dbf4fb60d5fe2bcca341, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shellMeshContainer: {fileID: 0}
-  smoothTime: 0.1
-  cutter2: {fileID: 772979185}
-  shellCenterT: {fileID: 1034423963}
-  rotater: {fileID: 2076920354}
-  shellCenterSpeed: 0.04
-  shellAngleSpeedAdder: 5
-  knifeTurnSpeed: 2
-  knife: {fileID: 1559832975}
-  rayDir: {x: 0, y: 0, z: 1}
-  pressed: 0
 --- !u!1001 &2076920349
 PrefabInstance:
   m_ObjectHideFlags: 0
