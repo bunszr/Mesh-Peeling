@@ -6,10 +6,6 @@ using UnityEngine;
 public class ShellControllerSamePosition : ShellControllerBase
 {
     public PeelingMesh peelingMesh;
-    public Transform shellCenterT;
-    protected float shellMeshRotationAngle = 0;
-    public float shellCenterSpeed = .04f;
-    public float shellAngleSpeedAdder = 5;
 
     protected override void Start()
     {
@@ -23,7 +19,6 @@ public class ShellControllerSamePosition : ShellControllerBase
     protected override void OnStartPeeling()
     {
         base.OnStartPeeling();
-        shellMeshRotationAngle = 0;
     }
 
     protected override void OnEndPeeling()
