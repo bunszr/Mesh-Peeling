@@ -13,15 +13,18 @@ public class PeelingMesh : MonoBehaviour
     [HideInInspector] public NativeArray<int> triangles;
     [HideInInspector] public Mesh mesh;
 
+    public float PercentOfPeeling { get; set; }
+    public int VertexOrTriangleIndicesCount { get; private set; }
+
     protected virtual void Awake()
     {
         mesh = GetComponent<MeshFilter>().mesh;
 
-        int vertexOrTriangleIndicesCount = mesh.vertices.Length;
+        VertexOrTriangleIndicesCount = mesh.vertices.Length;
 
-        vertices = new NativeArray<float3>(vertexOrTriangleIndicesCount, Allocator.Persistent);
-        uvs2ToClip = new NativeArray<float2>(vertexOrTriangleIndicesCount, Allocator.Persistent);
-        triangles = new NativeArray<int>(vertexOrTriangleIndicesCount, Allocator.Persistent);
+        vertices = new NativeArray<float3>(VertexOrTriangleIndicesCount, Allocator.Persistent);
+        uvs2ToClip = new NativeArray<float2>(VertexOrTriangleIndicesCount, Allocator.Persistent);
+        triangles = new NativeArray<int>(VertexOrTriangleIndicesCount, Allocator.Persistent);
 
         JobDataSetter jobDataSetter = new JobDataSetter()
         {
@@ -33,7 +36,7 @@ public class PeelingMesh : MonoBehaviour
             targetTriangles = triangles,
         };
 
-        jobDataSetter.ScheduleParallel(vertexOrTriangleIndicesCount, 1024, default).Complete();
+        jobDataSetter.ScheduleParallel(VertexOrTriangleIndicesCount, 1024, default).Complete();
     }
 
     protected virtual void OnDisable()

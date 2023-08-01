@@ -28,9 +28,7 @@ public class Cutter2 : MonoBehaviour
     Queue<int> peelingTriIndicesNormalQueue = new Queue<int>();
     public int maxPeelingTriangle = 70;
 
-    private void Start()
-    {
-    }
+    public float PeelingTriangleIndexCount { get; set; }
 
     private void Update()
     {
@@ -58,8 +56,8 @@ public class Cutter2 : MonoBehaviour
         JobHandle jobHandleMeshPeeler = jobMeshPeeler.ScheduleParallel(peelingMesh.triangles.Length / 3, 102, default);
         jobHandleMeshPeeler.Complete();
 
-        int count = peelingTriIndicesNativeQueue.Count;
-        for (int i = 0; i < count; i++) peelingTriIndicesNormalQueue.Enqueue(peelingTriIndicesNativeQueue.Dequeue());
+        int peelingTriIndicesNativeQueueCount = peelingTriIndicesNativeQueue.Count;
+        for (int i = 0; i < peelingTriIndicesNativeQueueCount; i++) peelingTriIndicesNormalQueue.Enqueue(peelingTriIndicesNativeQueue.Dequeue());
         peelingTriIndicesNativeQueue.Dispose();
 
 
@@ -72,6 +70,8 @@ public class Cutter2 : MonoBehaviour
                 onStartPeling?.Invoke();
                 Debug.Log("Start");
             }
+
+            CalculatePercentOfPeeling(peelingTriIndicesNativeQueueCount);
 
             LimitPeelingTriIndicesLength();
             RunJobVertexSnapper(jobHandleMeshPeeler);
@@ -91,9 +91,6 @@ public class Cutter2 : MonoBehaviour
             if (state == State.Start && !hasPeelingInFrame)
             {
                 state = State.End;
-                // shellMeshContainer.currShellMesh.Throw(transform.forward + transform.up);
-                // shellMeshContainer.Return(shellMeshContainer.currShellMesh);
-                // shellMeshContainer.currShellMesh = shellMeshContainer.Rent();
                 onEndPeling?.Invoke();
                 Debug.Log("end");
             }
@@ -104,6 +101,12 @@ public class Cutter2 : MonoBehaviour
 
     private void OnDisable()
     {
+    }
+
+    void CalculatePercentOfPeeling(int peelingTriIndicesCount)
+    {
+        PeelingTriangleIndexCount += peelingTriIndicesCount;
+        peelingMesh.PercentOfPeeling = PeelingTriangleIndexCount / (float)peelingMesh.VertexOrTriangleIndicesCount;
     }
 
     void LimitPeelingTriIndicesLength()
