@@ -22,6 +22,7 @@ public struct JobMeshPeeler : IJobFor
 
     [ReadOnly] public float3 cutterCenterPosition;
     [ReadOnly] public float cutterSqrRadius;
+    [ReadOnly] public float vertexOffset;
 
     [NativeDisableParallelForRestriction, WriteOnly] public NativeQueue<int>.ParallelWriter peelingTriIndicesQueue;
 
@@ -46,7 +47,7 @@ public struct JobMeshPeeler : IJobFor
         {
             float3 world = math.mul(peelingLocalToWorldMatrix, math.float4(vertices[triangles[triIndexA + j]], 1)).xyz;
             float3 localPeelingShell = math.mul(shellWorldToLocalMatrix, math.float4(world, 1)).xyz;
-            shellVertices[triangles[triIndexA + j]] = localPeelingShell;
+            shellVertices[triangles[triIndexA + j]] = localPeelingShell + math.normalizesafe(localPeelingShell) * vertexOffset;
         }
 
         shellUvs2ToClip[triangles[triIndexA]] = new float2(0, 1);

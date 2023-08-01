@@ -11,6 +11,7 @@ public class Cutter2 : CutterBase
     public Transform shellCenterT;
 
 
+    public float vertexOffset = 0;
     public float delay = .2f;
     float nextTime;
 
@@ -45,6 +46,7 @@ public class Cutter2 : CutterBase
             cutterCenterPosition = transform.position,
             cutterSqrRadius = Mathf.Pow(transform.localScale.x * .5f, 2),
             peelingTriIndicesQueue = peelingTriIndicesNativeQueue.AsParallelWriter(),
+            vertexOffset = vertexOffset,
             hasInsadeResult = hasInsadeResult,
         };
 

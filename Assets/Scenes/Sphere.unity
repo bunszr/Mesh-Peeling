@@ -673,6 +673,7 @@ MonoBehaviour:
   shellMeshContainer: {fileID: 832924776}
   peelingMesh: {fileID: 2076920353}
   shellCenterT: {fileID: 1034423963}
+  vertexOffset: 0
   delay: 0.05
   maxPeelingTriangle: 150
 --- !u!23 &772979186
@@ -1342,6 +1343,7 @@ GameObject:
   - component: {fileID: 1730413750}
   - component: {fileID: 1730413753}
   - component: {fileID: 1730413752}
+  - component: {fileID: 1730413754}
   m_Layer: 0
   m_Name: Knife and Shell Controller
   m_TagString: Untagged
@@ -1403,6 +1405,7 @@ MonoBehaviour:
   knifeMovementNoCamRayStateData:
     pressed: 1
     rayDir: {x: 0, y: 0, z: 1}
+    rayOrigin: {x: 0, y: 0, z: -2}
 --- !u!114 &1730413752
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1434,6 +1437,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0afb28ee43784a04b8345bc480dd05c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1730413754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1730413743}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00adf6140f5dc8a438d47b7e465e2cfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cutterBase: {fileID: 772979185}
+  knife: {fileID: 1730413751}
+  rotater: {fileID: 2076920354}
+  shellMeshContainer: {fileID: 832924776}
+  peelingMesh: {fileID: 2076920353}
+  shellCenterT: {fileID: 1034423963}
+  shellCenterSpeed: 0.04
+  shellAngleSpeedAdder: 5
 --- !u!1001 &2076920349
 PrefabInstance:
   m_ObjectHideFlags: 0
