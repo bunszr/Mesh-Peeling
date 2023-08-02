@@ -5,12 +5,8 @@ using Unity.Collections;
 using Unity.Jobs;
 using UnityEngine;
 
-public class Cutter2 : CutterBase
+public class Cutter : CutterBase
 {
-    public PeelingMesh peelingMesh;
-    public Transform shellCenterT;
-
-
     public float vertexOffset = 0;
     public float delay = .2f;
     float nextTime;

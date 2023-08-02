@@ -44,7 +44,7 @@ public class ShellController : ShellControllerBase
     {
         if (!hasPeeling) return;
 
-        shellMeshRotationAngle += (shellAngleSpeedAdder + Utility.GetAngleSpeedFromSpeed(knife.velocity, ShellMeshRadius) + GetAngleSpeedFromAngleSpeedOfRotater()) * Time.deltaTime;
+        shellMeshRotationAngle += (shellAngleSpeedAdder + Utility.GetAngleSpeedFromSpeed(_knife.velocity, ShellMeshRadius) + GetAngleSpeedFromAngleSpeedOfRotater()) * Time.deltaTime;
         shellMeshContainer.CurrShellMesh.transform.localPosition += Vector3.back * shellCenterSpeed * Time.deltaTime;
         shellMeshContainer.CurrShellMesh.transform.rotation = Quaternion.AngleAxis(shellMeshRotationAngle, transform.up);
     }

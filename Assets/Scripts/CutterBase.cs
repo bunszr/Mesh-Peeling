@@ -7,8 +7,15 @@ using UnityEngine;
 
 public abstract class CutterBase : MonoBehaviour
 {
-    public ShellMeshContainer shellMeshContainer;
+    LevelDataHolder levelDataHolder;
+    public ShellMeshContainer shellMeshContainer => levelDataHolder.shellMeshContainer;
+    public PeelingMesh peelingMesh => levelDataHolder.peelingMesh;
 
     public System.Action onStartPeling;
     public System.Action onEndPeling;
+
+    protected virtual void Start()
+    {
+        levelDataHolder = GetComponentInParent<LevelDataHolder>();
+    }
 }

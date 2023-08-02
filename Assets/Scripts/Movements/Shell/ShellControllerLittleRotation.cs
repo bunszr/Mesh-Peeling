@@ -41,7 +41,7 @@ public class ShellControllerLittleRotation : ShellControllerBase
     {
         if (!hasPeeling) return;
 
-        float angle = (shellAngleSpeedAdder + Utility.GetAngleSpeedFromSpeed(knife.velocity, ShellMeshRadius) + GetAngleSpeedFromAngleSpeedOfRotater()) * Time.deltaTime;
+        float angle = (shellAngleSpeedAdder + Utility.GetAngleSpeedFromSpeed(_knife.velocity, ShellMeshRadius) + GetAngleSpeedFromAngleSpeedOfRotater()) * Time.deltaTime;
         shellMeshContainer.CurrShellMesh.transform.rotation *= Quaternion.AngleAxis(angle, Vector3.up);
     }
 }

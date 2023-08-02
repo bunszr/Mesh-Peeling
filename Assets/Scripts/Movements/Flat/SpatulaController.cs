@@ -7,7 +7,7 @@ public class SpatulaController : MonoBehaviour
 {
     bool hasPeeling;
 
-    public Cutter2 cutter2;
+    public Cutter cutter2;
     public ShellMeshContainer shellMeshContainer;
     public Transform shellCenterT;
 

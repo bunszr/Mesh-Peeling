@@ -1,0 +1,116 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &7618286175744252408
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 920557300574814195, guid: f281aa673d7901540aa06291ddcd1615,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: -1413266873842654184, guid: 243699dce2bf990459255a2f612c630d,
+        type: 3}
+    - target: {fileID: 3468460853674126060, guid: f281aa673d7901540aa06291ddcd1615,
+        type: 3}
+      propertyPath: m_Name
+      value: PM Sphere
+      objectReference: {fileID: 0}
+    - target: {fileID: 4281131495166865494, guid: f281aa673d7901540aa06291ddcd1615,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4281131495166865494, guid: f281aa673d7901540aa06291ddcd1615,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4281131495166865494, guid: f281aa673d7901540aa06291ddcd1615,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4281131495166865494, guid: f281aa673d7901540aa06291ddcd1615,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4281131495166865494, guid: f281aa673d7901540aa06291ddcd1615,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4281131495166865494, guid: f281aa673d7901540aa06291ddcd1615,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4281131495166865494, guid: f281aa673d7901540aa06291ddcd1615,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4281131495166865494, guid: f281aa673d7901540aa06291ddcd1615,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4281131495166865494, guid: f281aa673d7901540aa06291ddcd1615,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4281131495166865494, guid: f281aa673d7901540aa06291ddcd1615,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4281131495166865494, guid: f281aa673d7901540aa06291ddcd1615,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4387380238604375946, guid: f281aa673d7901540aa06291ddcd1615,
+        type: 3}
+      propertyPath: meshSplitterData
+      value: 
+      objectReference: {fileID: 11400000, guid: b82e58f43ef8ae748a0ac17bfadf27c2,
+        type: 2}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f281aa673d7901540aa06291ddcd1615, type: 3}
+--- !u!1 &6457005372054532884 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3468460853674126060, guid: f281aa673d7901540aa06291ddcd1615,
+    type: 3}
+  m_PrefabInstance: {fileID: 7618286175744252408}
+  m_PrefabAsset: {fileID: 0}
+--- !u!135 &8416600019047551080
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6457005372054532884}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1
+  m_Center: {x: -0.000000059604645, y: 0, z: 0}
+--- !u!114 &2864002464084947088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6457005372054532884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17aa77a67b3f8fa42bef701a7453d99f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 1
+  angleSpeed: -60

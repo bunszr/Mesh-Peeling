@@ -5,16 +5,18 @@ using UnityEngine;
 
 public class ShellControllerBase : MonoBehaviour
 {
-    public CutterBase cutterBase;
-    public Knife knife;
-    public Rotater rotater;
-    public ShellMeshContainer shellMeshContainer;
+    LevelDataHolder levelDataHolder;
+    public CutterBase cutterBase => levelDataHolder.cutterBase;
+    public IKnife _knife => levelDataHolder._knife;
+    public Rotater rotater => levelDataHolder.rotater;
+    public ShellMeshContainer shellMeshContainer => levelDataHolder.shellMeshContainer;
     protected bool hasPeeling;
 
     public float ShellMeshRadius => shellMeshContainer.CurrShellMesh.transform.localPosition.magnitude;
 
     protected virtual void Start()
     {
+        levelDataHolder = GetComponentInParent<LevelDataHolder>();
         cutterBase.onStartPeling += OnStartPeeling;
         cutterBase.onEndPeling += OnEndPeeling;
     }

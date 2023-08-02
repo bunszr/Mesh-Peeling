@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PeelingMesh : MonoBehaviour
 {
-    public ShellMeshContainer shellMeshContainer;
+    ShellMeshContainer shellMeshContainer;
     public NativeMultiHashMap<int, int> multiHashMapVertIndexToSameVerticesIndices;
 
     [HideInInspector] public NativeArray<float3> vertices;
@@ -19,6 +19,7 @@ public class PeelingMesh : MonoBehaviour
     protected virtual void Awake()
     {
         mesh = GetComponent<MeshFilter>().mesh;
+        shellMeshContainer = GetComponentInParent<LevelDataHolder>().shellMeshContainer;
 
         VertexOrTriangleIndicesCount = mesh.vertices.Length;
 

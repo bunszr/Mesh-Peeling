@@ -6,6 +6,7 @@ using FSM;
 
 public class KnifeFSM : MonoBehaviour
 {
+    PeelingMesh peelingMesh;
     StateMachine fsm;
     Camera cam;
     Knife knife;
@@ -15,6 +16,7 @@ public class KnifeFSM : MonoBehaviour
     void Start()
     {
         knife = GetComponent<Knife>();
+        peelingMesh = GetComponentInParent<LevelDataHolder>().peelingMesh;
         cam = Camera.main;
         fsm = new StateMachine(this);
 
@@ -49,7 +51,7 @@ public class KnifeFSM : MonoBehaviour
 
     public bool IsEnoughPeel()
     {
-        return knife.peelingMesh.PercentOfPeeling > .9f;
+        return peelingMesh.PercentOfPeeling > .9f;
     }
 
 #if UNITY_EDITOR

@@ -3,14 +3,12 @@ using DG.Tweening;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-public class Knife : MonoBehaviour
+public class Knife : MonoBehaviour, IKnife
 {
     public KnifeIdleStateData knifeIdleStateData;
-    public PeelingMesh peelingMesh;
     public Transform knifeVisual;
     public float smoothTime = .1f;
     public float knifeTurnSpeed = 2;
-    public float velocity;
-
+    public float velocity { get; set; }
     public KnifeMovementNoCamRayStateData knifeMovementNoCamRayStateData;
 }

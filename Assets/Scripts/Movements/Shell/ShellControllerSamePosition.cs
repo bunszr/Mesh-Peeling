@@ -5,11 +5,12 @@ using UnityEngine;
 
 public class ShellControllerSamePosition : ShellControllerBase
 {
-    public PeelingMesh peelingMesh;
+    PeelingMesh peelingMesh;
 
     protected override void Start()
     {
         base.Start();
+        peelingMesh = GetComponentInParent<LevelDataHolder>().peelingMesh;
         shellMeshContainer.CurrShellMesh = shellMeshContainer.Rent();
         shellMeshContainer.CurrShellMesh.transform.parent = peelingMesh.transform;
         shellMeshContainer.CurrShellMesh.transform.localPosition = Vector3.zero;
