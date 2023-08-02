@@ -10,6 +10,7 @@ public struct JobVertexSnapper : IJobFor
     [ReadOnly] public NativeArray<float2> shellUvs2ToClip;
     [ReadOnly] public NativeMultiHashMap<int, int> multiHashMapVertIndexToSameVerticesIndices;
     [ReadOnly] public NativeArray<int> peelingTriIndices;
+    [ReadOnly] public NativeHashMap<int, bool> vertexKeyFromPeelingTriIndices;
     [NativeDisableParallelForRestriction] public NativeArray<float3> shellVertices;
 
     public void Execute(int index)
@@ -28,19 +29,9 @@ public struct JobVertexSnapper : IJobFor
 
     public void Snap(int vertIndex, int valueSameVertexIndex)
     {
-        if (shellUvs2ToClip[valueSameVertexIndex].y > 0 && Exist(valueSameVertexIndex))
+        if (shellUvs2ToClip[valueSameVertexIndex].y > 0 && vertexKeyFromPeelingTriIndices.ContainsKey(valueSameVertexIndex))
         {
             shellVertices[valueSameVertexIndex] = shellVertices[vertIndex];
         }
-    }
-
-    public bool Exist(int sameVertexIndex)
-    {
-        for (int i = 0; i < peelingTriIndices.Length; i++)
-        {
-            int vertIndex = shellTriangles[peelingTriIndices[i]];
-            if (vertIndex == sameVertexIndex) return true;
-        }
-        return false;
     }
 }

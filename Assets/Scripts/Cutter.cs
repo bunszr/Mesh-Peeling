@@ -119,13 +119,14 @@ public class Cutter : CutterBase
 
     void RunJobVertexSnapper(JobHandle jobHandleMeshPeeler)
     {
-        // NativeArray<int> array = peelingTriIndicesNormalQueue.ToArray(Allocator.TempJob);
+        NativeHashMap<int, bool> vertexKeyFromPeelingTriIndices = new NativeHashMap<int, bool>(peelingTriIndicesNormalQueue.Count, Allocator.TempJob);
         NativeArray<int> array = new NativeArray<int>(peelingTriIndicesNormalQueue.Count, Allocator.TempJob);
         for (int i = 0; i < array.Length; i++)
         {
             int value = peelingTriIndicesNormalQueue.Dequeue();
             peelingTriIndicesNormalQueue.Enqueue(value);
             array[i] = value;
+            vertexKeyFromPeelingTriIndices.Add(shellMeshContainer.CurrShellMesh.triangles[value], true);
         }
 
         JobVertexSnapper jobVertexSnapper = new JobVertexSnapper()
@@ -135,6 +136,7 @@ public class Cutter : CutterBase
             shellUvs2ToClip = shellMeshContainer.CurrShellMesh.uvs2ToClip,
             multiHashMapVertIndexToSameVerticesIndices = peelingMesh.multiHashMapVertIndexToSameVerticesIndices,
             peelingTriIndices = array,
+            vertexKeyFromPeelingTriIndices = vertexKeyFromPeelingTriIndices,
         };
 
         JobHandle jobHandle = jobVertexSnapper.ScheduleParallel(array.Length, 9, jobHandleMeshPeeler);
