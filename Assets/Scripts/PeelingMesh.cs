@@ -9,6 +9,7 @@ public class PeelingMesh : MonoBehaviour
     public NativeMultiHashMap<int, int> multiHashMapVertIndexToSameVerticesIndices;
 
     [HideInInspector] public NativeArray<float3> vertices;
+    [HideInInspector] public NativeArray<float2> uvs;
     [HideInInspector] public NativeArray<float2> uvs2ToClip;
     [HideInInspector] public NativeArray<int> triangles;
     [HideInInspector] public Mesh mesh;
@@ -24,6 +25,7 @@ public class PeelingMesh : MonoBehaviour
         VertexOrTriangleIndicesCount = mesh.vertices.Length;
 
         vertices = new NativeArray<float3>(VertexOrTriangleIndicesCount, Allocator.Persistent);
+        uvs = new NativeArray<float2>(VertexOrTriangleIndicesCount, Allocator.Persistent);
         uvs2ToClip = new NativeArray<float2>(VertexOrTriangleIndicesCount, Allocator.Persistent);
         triangles = new NativeArray<int>(VertexOrTriangleIndicesCount, Allocator.Persistent);
 
@@ -31,8 +33,10 @@ public class PeelingMesh : MonoBehaviour
         {
             vertices = shellMeshContainer.vertices,
             uvs2ToClip = shellMeshContainer.uvs2ToClip,
+            uvs = shellMeshContainer.uvs,
             triangles = shellMeshContainer.triangles,
             targetVertices = vertices,
+            targetUvs = uvs,
             targetUvs2ToClip = uvs2ToClip,
             targetTriangles = triangles,
         };

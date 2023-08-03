@@ -10,6 +10,7 @@ public abstract class CutterBase : MonoBehaviour
     LevelDataHolder levelDataHolder;
     public ShellMeshContainer shellMeshContainer => levelDataHolder.shellMeshContainer;
     public PeelingMesh peelingMesh => levelDataHolder.peelingMesh;
+    public ShellMeshCollision shellMeshCollisionPrefab;
 
     public System.Action onStartPeling;
     public System.Action onEndPeling;

@@ -3,7 +3,9 @@ using DG.Tweening;
 using Sirenix.OdinInspector;
 using Unity.Collections;
 using Unity.Jobs;
+using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.Profiling;
 
 public class Cutter : CutterBase
 {
@@ -17,10 +19,18 @@ public class Cutter : CutterBase
         None, Start, End
     }
 
+    NativeQueue<int> peeledTriangleIndicesAtOnce;
     Queue<int> peelingTriIndicesNormalQueue = new Queue<int>();
     public int maxPeelingTriangle = 70;
 
     public float PeelingTriangleIndexCount { get; set; }
+
+
+    protected override void Start()
+    {
+        base.Start();
+        peeledTriangleIndicesAtOnce = new NativeQueue<int>(Allocator.Persistent);
+    }
 
     private void Update()
     {
@@ -42,6 +52,7 @@ public class Cutter : CutterBase
             cutterCenterPosition = transform.position,
             cutterSqrRadius = Mathf.Pow(transform.localScale.x * .5f, 2),
             peelingTriIndicesQueue = peelingTriIndicesNativeQueue.AsParallelWriter(),
+            peeledTriangleIndicesAtOnce = peeledTriangleIndicesAtOnce.AsParallelWriter(),
             vertexOffset = vertexOffset,
             hasInsadeResult = hasInsadeResult,
         };
@@ -83,6 +94,9 @@ public class Cutter : CutterBase
         {
             if (state == State.Start && !hasPeelingInFrame)
             {
+                GenerateShellMeshFromShellMesh();
+                peeledTriangleIndicesAtOnce.Clear();
+
                 state = State.End;
                 onEndPeling?.Invoke();
                 Debug.Log("end");
@@ -145,5 +159,46 @@ public class Cutter : CutterBase
 
         array.Dispose();
         vertexKeyFromPeelingTriIndices.Dispose();
+    }
+
+    private void GenerateShellMeshFromShellMesh()
+    {
+        if (peeledTriangleIndicesAtOnce.Count <= 3) return;
+
+        int count = peeledTriangleIndicesAtOnce.Count * 3;
+        NativeArray<float3> newMeshVertices = new NativeArray<float3>(count, Allocator.TempJob);
+        NativeArray<float3> newMeshNormals = new NativeArray<float3>(count, Allocator.TempJob);
+        NativeArray<float2> newMeshUVs = new NativeArray<float2>(count, Allocator.TempJob);
+        NativeArray<int> newMeshTriangles = new NativeArray<int>(count, Allocator.TempJob);
+        NativeArray<int> peeledTriIndicesAtOnceArray = peeledTriangleIndicesAtOnce.ToArray(Allocator.TempJob);
+
+        JobGenerateMesh jobGenerateMesh = new JobGenerateMesh()
+        {
+            shellVertices = shellMeshContainer.CurrShellMesh.vertices,
+            peelingMeshUvs = peelingMesh.uvs,
+            peelingMeshTriangles = peelingMesh.triangles,
+            newMeshVertices = newMeshVertices,
+            newMeshNormals = newMeshNormals,
+            newMeshUvs = newMeshUVs,
+            newMeshTriangles = newMeshTriangles,
+            peeledTriIndicesAtOnceArray = peeledTriIndicesAtOnceArray,
+        };
+
+        jobGenerateMesh.ScheduleParallel(count / 3, 9, default).Complete();
+
+        Mesh mesh = new Mesh();
+        mesh.SetVertices(newMeshVertices);
+        mesh.SetUVs(0, newMeshUVs);
+        mesh.SetNormals(newMeshNormals);
+        mesh.SetIndices(newMeshTriangles, MeshTopology.Triangles, 0, true);
+
+        ShellMeshCollision shellMeshCollision = Instantiate(shellMeshCollisionPrefab, shellMeshContainer.CurrShellMesh.transform.position, shellMeshContainer.CurrShellMesh.transform.rotation);
+        shellMeshCollision.meshFilter.mesh = mesh;
+        shellMeshCollision.meshCollider.sharedMesh = mesh;
+
+        newMeshVertices.Dispose();
+        newMeshUVs.Dispose();
+        newMeshTriangles.Dispose();
+        peeledTriIndicesAtOnceArray.Dispose();
     }
 }

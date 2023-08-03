@@ -185,9 +185,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7891b4f0b47284c4b99e5678e52493c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shellMeshContainer: {fileID: 0}
-  peelingMesh: {fileID: 0}
-  shellCenterT: {fileID: 0}
+  shellMeshCollisionPrefab: {fileID: -1930387975973678989, guid: 5a5d2b3e272f5ef4e8b3597f0aa21931,
+    type: 3}
   vertexOffset: 0
   delay: 0.05
   maxPeelingTriangle: 150

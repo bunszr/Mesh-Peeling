@@ -9,6 +9,7 @@ public abstract class ShellMeshBase : MonoBehaviour
     [HideInInspector] public Mesh mesh;
 
     [HideInInspector] public NativeArray<float3> vertices;
+    [HideInInspector] public NativeArray<float2> uvs;
     [HideInInspector] public NativeArray<float2> uvs2ToClip;
     [HideInInspector] public NativeArray<int> triangles;
 
