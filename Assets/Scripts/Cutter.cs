@@ -144,5 +144,6 @@ public class Cutter : CutterBase
         jobHandle.Complete();
 
         array.Dispose();
+        vertexKeyFromPeelingTriIndices.Dispose();
     }
 }
