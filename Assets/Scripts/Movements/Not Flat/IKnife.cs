@@ -3,5 +3,5 @@ using UnityEngine;
 
 public interface IKnife
 {
-    float velocity { get; set; }
+    float Velocity { get; set; }
 }

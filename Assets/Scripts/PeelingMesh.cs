@@ -47,6 +47,7 @@ public class PeelingMesh : MonoBehaviour
     protected virtual void OnDisable()
     {
         vertices.Dispose();
+        uvs.Dispose();
         uvs2ToClip.Dispose();
         triangles.Dispose();
 

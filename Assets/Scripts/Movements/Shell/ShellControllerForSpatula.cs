@@ -3,7 +3,7 @@ using DG.Tweening;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-public class ShellController : ShellControllerBase
+public class ShellControllerForSpatula : ShellControllerBase
 {
     public Transform shellCenterT;
     protected float shellMeshRotationAngle = 0;
@@ -42,8 +42,15 @@ public class ShellController : ShellControllerBase
     {
         if (!hasPeeling) return;
 
-        shellMeshRotationAngle += (shellAngleSpeedAdder + Utility.GetAngleSpeedFromSpeed(_knife.Velocity, ShellMeshRadius) + GetAngleSpeedFromAngleSpeedOfRotater()) * Time.deltaTime;
-        CurrShellMesh.transform.localPosition += Vector3.back * shellCenterSpeed * Time.deltaTime;
-        CurrShellMesh.transform.rotation = Quaternion.AngleAxis(shellMeshRotationAngle, transform.up);
+        shellMeshRotationAngle += Time.deltaTime * (shellAngleSpeedAdder + GetAngleSpeedFromSpeed(_knife.Velocity));
+        CurrShellMesh.transform.localPosition += Vector3.up * shellCenterSpeed * Time.deltaTime;
+        CurrShellMesh.transform.rotation = Quaternion.AngleAxis(shellMeshRotationAngle, transform.right);
+    }
+
+    public float GetAngleSpeedFromSpeed(float speed)
+    {
+        float radius = CurrShellMesh.transform.localPosition.magnitude;
+        float circumferenceOfCircle = 2 * Mathf.PI * radius;
+        return speed * 360f / circumferenceOfCircle;
     }
 }

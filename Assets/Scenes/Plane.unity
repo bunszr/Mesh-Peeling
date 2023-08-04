@@ -209,6 +209,7 @@ GameObject:
   - component: {fileID: 386336404}
   - component: {fileID: 386336405}
   - component: {fileID: 386336406}
+  - component: {fileID: 386336407}
   m_Layer: 0
   m_Name: Spatula Controller
   m_TagString: Untagged
@@ -245,13 +246,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 186cc2483def6a849b016eb5a29202c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cutter2: {fileID: 1821682557}
-  shellMeshContainer: {fileID: 5689547880175115249}
-  shellCenterT: {fileID: 1264888936}
   speed: 0.4
   turnSpeed: 4
-  shellPositionSpeed: 0.02
-  shellAngleSpeed: 30
 --- !u!114 &386336406
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -266,6 +262,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 72.6
   amount: 111.1
+--- !u!114 &386336407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386336403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa3d3c542c445eb4991a9b6e4d3949a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CurrShellMesh: {fileID: 0}
+  shellCenterT: {fileID: 1264888936}
+  shellCenterSpeed: 0.04
+  shellAngleSpeedAdder: 5
 --- !u!1001 &702369743
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -731,18 +743,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5b380d89b31c0f5489e53de56de1b51c, type: 3}
---- !u!114 &1821682557 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1617031435, guid: d480a964db3f96d45908c602c542bc0e,
-    type: 3}
-  m_PrefabInstance: {fileID: 1617031432}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7891b4f0b47284c4b99e5678e52493c4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &2017485874
 PrefabInstance:
   m_ObjectHideFlags: 0

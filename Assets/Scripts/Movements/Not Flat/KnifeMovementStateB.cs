@@ -43,7 +43,7 @@ public class KnifeMovementStateB : KnifeStateBase
 
         Vector3 oldPos = transform.localPosition;
         transform.localPosition = Vector3.SmoothDamp(transform.localPosition, hitInFrame.point, ref vel, knife.smoothTime);
-        knife.velocity = Vector3.Distance(transform.localPosition, oldPos) / Time.deltaTime;
+        knife.Velocity = Vector3.Distance(transform.localPosition, oldPos) / Time.deltaTime;
         transform.rotation = Quaternion.FromToRotation(-Vector3.forward, hitInFrame.normal);
     }
 

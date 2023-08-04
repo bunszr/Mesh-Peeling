@@ -5,18 +5,12 @@ using Unity.Jobs;
 
 public abstract class ShellMeshBase : MonoBehaviour
 {
-    [HideInInspector] public Rigidbody rb;
     [HideInInspector] public Mesh mesh;
 
     [HideInInspector] public NativeArray<float3> vertices;
     [HideInInspector] public NativeArray<float2> uvs;
     [HideInInspector] public NativeArray<float2> uvs2ToClip;
     [HideInInspector] public NativeArray<int> triangles;
-
-    protected virtual void Awake()
-    {
-        rb = GetComponent<Rigidbody>();
-    }
 
     public void SetUvToClipValueNegative()
     {
@@ -28,6 +22,7 @@ public abstract class ShellMeshBase : MonoBehaviour
     protected virtual void OnDestroy()
     {
         vertices.Dispose();
+        uvs.Dispose();
         uvs2ToClip.Dispose();
         triangles.Dispose();
     }

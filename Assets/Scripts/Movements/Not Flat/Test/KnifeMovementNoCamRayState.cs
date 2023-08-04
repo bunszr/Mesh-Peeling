@@ -53,7 +53,7 @@ public class KnifeMovementNoCamRayState : KnifeStateBase
 
         Vector3 oldPos = transform.localPosition;
         transform.localPosition = Vector3.SmoothDamp(transform.localPosition, hitInFrame.point, ref vel, knife.smoothTime);
-        knife.velocity = Vector3.Distance(transform.localPosition, oldPos) / Time.deltaTime;
+        knife.Velocity = Vector3.Distance(transform.localPosition, oldPos) / Time.deltaTime;
     }
 
     public override void OnExit()

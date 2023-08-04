@@ -11,10 +11,8 @@ public class ShellControllerLittleRotation : ShellControllerBase
     protected override void Start()
     {
         base.Start();
-        shellMeshContainer.CurrShellMesh = shellMeshContainer.Rent();
-        shellMeshContainer.CurrShellMesh.transform.parent = null;
-        shellMeshContainer.CurrShellMesh.transform.localPosition = shellCenterT.localPosition;
-        shellMeshContainer.CurrShellMesh.transform.localRotation = shellCenterT.localRotation;
+        CurrShellMesh = shellMeshContainer.Rent();
+        SetTransformStuff();
     }
 
     protected override void OnStartPeeling()
@@ -26,22 +24,22 @@ public class ShellControllerLittleRotation : ShellControllerBase
     {
         base.OnEndPeeling();
 
-        shellMeshContainer.CurrShellMesh.rb.isKinematic = false;
+        SetTransformStuff();
+        CurrShellMesh.SetUvToClipValueNegative();
+    }
 
-        shellMeshContainer.Return(shellMeshContainer.CurrShellMesh);
-
-        shellMeshContainer.CurrShellMesh = shellMeshContainer.Rent();
-        shellMeshContainer.CurrShellMesh.rb.isKinematic = true;
-        shellMeshContainer.CurrShellMesh.transform.parent = null;
-        shellMeshContainer.CurrShellMesh.transform.localPosition = shellCenterT.localPosition;
-        shellMeshContainer.CurrShellMesh.transform.localRotation = shellCenterT.localRotation;
+    public void SetTransformStuff()
+    {
+        CurrShellMesh.transform.parent = null;
+        CurrShellMesh.transform.localPosition = shellCenterT.localPosition;
+        CurrShellMesh.transform.localRotation = shellCenterT.localRotation;
     }
 
     private void Update()
     {
         if (!hasPeeling) return;
 
-        float angle = (shellAngleSpeedAdder + Utility.GetAngleSpeedFromSpeed(_knife.velocity, ShellMeshRadius) + GetAngleSpeedFromAngleSpeedOfRotater()) * Time.deltaTime;
-        shellMeshContainer.CurrShellMesh.transform.rotation *= Quaternion.AngleAxis(angle, Vector3.up);
+        float angle = (shellAngleSpeedAdder + Utility.GetAngleSpeedFromSpeed(_knife.Velocity, ShellMeshRadius) + GetAngleSpeedFromAngleSpeedOfRotater()) * Time.deltaTime;
+        CurrShellMesh.transform.rotation *= Quaternion.AngleAxis(angle, Vector3.up);
     }
 }

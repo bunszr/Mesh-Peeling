@@ -44,11 +44,11 @@ public class Cutter : CutterBase
             vertices = peelingMesh.vertices,
             uvs2ToClip = peelingMesh.uvs2ToClip,
             triangles = peelingMesh.triangles,
-            shellVertices = shellMeshContainer.CurrShellMesh.vertices,
-            shellUvs2ToClip = shellMeshContainer.CurrShellMesh.uvs2ToClip,
+            shellVertices = shellControllerBase.CurrShellMesh.vertices,
+            shellUvs2ToClip = shellControllerBase.CurrShellMesh.uvs2ToClip,
             peelingWorldToLocalMatrix = peelingMesh.transform.worldToLocalMatrix,
             peelingLocalToWorldMatrix = peelingMesh.transform.localToWorldMatrix,
-            shellWorldToLocalMatrix = shellMeshContainer.CurrShellMesh.transform.worldToLocalMatrix,
+            shellWorldToLocalMatrix = shellControllerBase.CurrShellMesh.transform.worldToLocalMatrix,
             cutterCenterPosition = transform.position,
             cutterSqrRadius = Mathf.Pow(transform.localScale.x * .5f, 2),
             peelingTriIndicesQueue = peelingTriIndicesNativeQueue.AsParallelWriter(),
@@ -80,10 +80,10 @@ public class Cutter : CutterBase
             LimitPeelingTriIndicesLength();
             RunJobVertexSnapper(jobHandleMeshPeeler);
 
-            if (shellMeshContainer.CurrShellMesh != null)
+            if (shellControllerBase.CurrShellMesh != null)
             {
-                shellMeshContainer.CurrShellMesh.mesh.SetVertices(shellMeshContainer.CurrShellMesh.vertices);
-                shellMeshContainer.CurrShellMesh.mesh.SetUVs(1, shellMeshContainer.CurrShellMesh.uvs2ToClip);
+                shellControllerBase.CurrShellMesh.mesh.SetVertices(shellControllerBase.CurrShellMesh.vertices);
+                shellControllerBase.CurrShellMesh.mesh.SetUVs(1, shellControllerBase.CurrShellMesh.uvs2ToClip);
             }
             peelingMesh.mesh.SetUVs(1, peelingMesh.uvs2ToClip);
 
@@ -140,14 +140,14 @@ public class Cutter : CutterBase
             int value = peelingTriIndicesNormalQueue.Dequeue();
             peelingTriIndicesNormalQueue.Enqueue(value);
             array[i] = value;
-            vertexKeyFromPeelingTriIndices.Add(shellMeshContainer.CurrShellMesh.triangles[value], true);
+            vertexKeyFromPeelingTriIndices.Add(shellControllerBase.CurrShellMesh.triangles[value], true);
         }
 
         JobVertexSnapper jobVertexSnapper = new JobVertexSnapper()
         {
-            shellTriangles = shellMeshContainer.CurrShellMesh.triangles,
-            shellVertices = shellMeshContainer.CurrShellMesh.vertices,
-            shellUvs2ToClip = shellMeshContainer.CurrShellMesh.uvs2ToClip,
+            shellTriangles = shellControllerBase.CurrShellMesh.triangles,
+            shellVertices = shellControllerBase.CurrShellMesh.vertices,
+            shellUvs2ToClip = shellControllerBase.CurrShellMesh.uvs2ToClip,
             multiHashMapVertIndexToSameVerticesIndices = peelingMesh.multiHashMapVertIndexToSameVerticesIndices,
             peelingTriIndices = array,
             vertexKeyFromPeelingTriIndices = vertexKeyFromPeelingTriIndices,
@@ -174,7 +174,7 @@ public class Cutter : CutterBase
 
         JobGenerateMesh jobGenerateMesh = new JobGenerateMesh()
         {
-            shellVertices = shellMeshContainer.CurrShellMesh.vertices,
+            shellVertices = shellControllerBase.CurrShellMesh.vertices,
             peelingMeshUvs = peelingMesh.uvs,
             peelingMeshTriangles = peelingMesh.triangles,
             newMeshVertices = newMeshVertices,
@@ -192,7 +192,7 @@ public class Cutter : CutterBase
         mesh.SetNormals(newMeshNormals);
         mesh.SetIndices(newMeshTriangles, MeshTopology.Triangles, 0, true);
 
-        ShellMeshCollision shellMeshCollision = Instantiate(shellMeshCollisionPrefab, shellMeshContainer.CurrShellMesh.transform.position, shellMeshContainer.CurrShellMesh.transform.rotation);
+        ShellMeshCollision shellMeshCollision = Instantiate(shellMeshCollisionPrefab, shellControllerBase.CurrShellMesh.transform.position, shellControllerBase.CurrShellMesh.transform.rotation);
         shellMeshCollision.meshFilter.mesh = mesh;
         shellMeshCollision.meshCollider.sharedMesh = mesh;
 

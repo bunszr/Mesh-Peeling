@@ -9,6 +9,6 @@ public class Knife : MonoBehaviour, IKnife
     public Transform knifeVisual;
     public float smoothTime = .1f;
     public float knifeTurnSpeed = 2;
-    public float velocity { get; set; }
+    public float Velocity { get; set; }
     public KnifeMovementNoCamRayStateData knifeMovementNoCamRayStateData;
 }

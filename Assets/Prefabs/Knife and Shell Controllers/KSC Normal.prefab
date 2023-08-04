@@ -50,6 +50,10 @@ PrefabInstance:
       propertyPath: shellMeshContainer
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 1617031435, guid: d480a964db3f96d45908c602c542bc0e, type: 3}
+      propertyPath: shellControllerBase
+      value: 
+      objectReference: {fileID: 692829318}
     - target: {fileID: 2311071610925407172, guid: d480a964db3f96d45908c602c542bc0e,
         type: 3}
       propertyPath: m_Name
@@ -205,6 +209,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7fbb11ccf0e40149926794c113a2e7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CurrShellMesh: {fileID: 0}
   shellCenterT: {fileID: 1034423963}
   shellCenterSpeed: 0.05
   shellAngleSpeedAdder: 5
@@ -239,7 +244,6 @@ MonoBehaviour:
   knifeVisual: {fileID: 6099751456757327970}
   smoothTime: 0.2
   knifeTurnSpeed: 2
-  velocity: 0
   knifeMovementNoCamRayStateData:
     pressed: 1
     rayDir: {x: 0, y: 0, z: 1}

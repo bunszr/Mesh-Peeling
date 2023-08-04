@@ -10,9 +10,12 @@ public class ShellControllerBase : MonoBehaviour
     public IKnife _knife => levelDataHolder._knife;
     public Rotater rotater => levelDataHolder.rotater;
     public ShellMeshContainer shellMeshContainer => levelDataHolder.shellMeshContainer;
+
+    public ShellMeshBase CurrShellMesh;
+
     protected bool hasPeeling;
 
-    public float ShellMeshRadius => shellMeshContainer.CurrShellMesh.transform.localPosition.magnitude;
+    public float ShellMeshRadius => CurrShellMesh.transform.localPosition.magnitude;
 
     protected virtual void Start()
     {
@@ -33,7 +36,7 @@ public class ShellControllerBase : MonoBehaviour
 
     public float GetAngleSpeedFromAngleSpeedOfRotater()
     {
-        float radius = shellMeshContainer.CurrShellMesh.transform.localPosition.magnitude;
+        float radius = CurrShellMesh.transform.localPosition.magnitude;
         return Mathf.Abs(rotater.angleSpeed * (rotater.radius / radius));
     }
 }

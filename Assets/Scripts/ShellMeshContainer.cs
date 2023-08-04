@@ -60,6 +60,7 @@ public class ShellMeshContainer : MonoBehaviour
             };
 
             jobDataSetter.ScheduleParallel(vertexOrTriangleIndicesCount, 2048, default).Complete();
+            shell.SetUvToClipValueNegative();
         }
     }
 
@@ -67,13 +68,6 @@ public class ShellMeshContainer : MonoBehaviour
     {
         ShellMeshBase peelingShellMesh = peelingShellMeshQueue.Dequeue();
         peelingShellMesh.gameObject.SetActive(true);
-        peelingShellMesh.SetUvToClipValueNegative();
         return peelingShellMesh;
-    }
-
-    public void Return(ShellMeshBase shellMesh)
-    {
-        peelingShellMeshQueue.Enqueue(shellMesh);
-        shellMesh.transform.parent = transform;
     }
 }

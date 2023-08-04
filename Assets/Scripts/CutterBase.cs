@@ -11,6 +11,7 @@ public abstract class CutterBase : MonoBehaviour
     public ShellMeshContainer shellMeshContainer => levelDataHolder.shellMeshContainer;
     public PeelingMesh peelingMesh => levelDataHolder.peelingMesh;
     public ShellMeshCollision shellMeshCollisionPrefab;
+    [HideInInspector] public ShellControllerBase shellControllerBase;
 
     public System.Action onStartPeling;
     public System.Action onEndPeling;
@@ -18,5 +19,6 @@ public abstract class CutterBase : MonoBehaviour
     protected virtual void Start()
     {
         levelDataHolder = GetComponentInParent<LevelDataHolder>();
+        shellControllerBase = GetComponentInParent<ShellControllerBase>();
     }
 }

@@ -11,10 +11,10 @@ public class ShellControllerSamePosition : ShellControllerBase
     {
         base.Start();
         peelingMesh = GetComponentInParent<LevelDataHolder>().peelingMesh;
-        shellMeshContainer.CurrShellMesh = shellMeshContainer.Rent();
-        shellMeshContainer.CurrShellMesh.transform.parent = peelingMesh.transform;
-        shellMeshContainer.CurrShellMesh.transform.localPosition = Vector3.zero;
-        shellMeshContainer.CurrShellMesh.transform.localRotation = Quaternion.identity;
+        CurrShellMesh = shellMeshContainer.Rent();
+        CurrShellMesh.transform.parent = peelingMesh.transform;
+        CurrShellMesh.transform.localPosition = Vector3.zero;
+        CurrShellMesh.transform.localRotation = Quaternion.identity;
     }
 
     protected override void OnStartPeeling()
@@ -26,20 +26,15 @@ public class ShellControllerSamePosition : ShellControllerBase
     {
         base.OnEndPeeling();
 
-        shellMeshContainer.CurrShellMesh.rb.isKinematic = false;
-
-        shellMeshContainer.Return(shellMeshContainer.CurrShellMesh);
-
-        shellMeshContainer.CurrShellMesh = shellMeshContainer.Rent();
-        shellMeshContainer.CurrShellMesh.rb.isKinematic = true;
-        shellMeshContainer.CurrShellMesh.transform.parent = peelingMesh.transform;
-        shellMeshContainer.CurrShellMesh.transform.localPosition = Vector3.up;
-        shellMeshContainer.CurrShellMesh.transform.localRotation = Quaternion.identity;
+        CurrShellMesh.transform.parent = peelingMesh.transform;
+        CurrShellMesh.transform.localPosition = Vector3.up;
+        CurrShellMesh.transform.localRotation = Quaternion.identity;
+        CurrShellMesh.SetUvToClipValueNegative();
     }
 
     private void Update()
     {
         if (!hasPeeling) return;
-        // shellMeshContainer.CurrShellMesh.transform.SetLocalPosY(Mathf.PingPong(Time.time * speed, 1));
+        // CurrShellMesh.transform.SetLocalPosY(Mathf.PingPong(Time.time * speed, 1));
     }
 }
