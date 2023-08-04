@@ -37,7 +37,7 @@ public class KnifeMovementNoCamRayState : KnifeStateBase
         if (!knife.knifeMovementNoCamRayStateData.pressed) return;
 
         RaycastHit hitInFrame = new RaycastHit();
-        Utility.RaycastWithRay(new Ray(knife.knifeMovementNoCamRayStateData.rayOrigin, knife.knifeMovementNoCamRayStateData.rayDir), out hitInFrame);
+        Utility.RaycastWithRay(new Ray(knife.knifeMovementNoCamRayStateData.rayOrigin, knife.knifeMovementNoCamRayStateData.rayDir), knife.peelingMeshLayerMask, out hitInFrame);
 
         if (hitInFrame.collider == null) return;
 

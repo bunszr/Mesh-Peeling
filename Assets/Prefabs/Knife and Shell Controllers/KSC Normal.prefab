@@ -244,6 +244,9 @@ MonoBehaviour:
   knifeVisual: {fileID: 6099751456757327970}
   smoothTime: 0.2
   knifeTurnSpeed: 2
+  peelingMeshLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
   knifeMovementNoCamRayStateData:
     pressed: 1
     rayDir: {x: 0, y: 0, z: 1}

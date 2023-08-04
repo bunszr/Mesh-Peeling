@@ -26,7 +26,7 @@ public class KnifeMovementStateA : KnifeStateBase
     public override void OnLogic()
     {
         RaycastHit hitInFrame = new RaycastHit();
-        Utility.RaycastWithCam(Camera.main, out hitInFrame);
+        Utility.RaycastWithCam(Camera.main, knife.peelingMeshLayerMask, out hitInFrame);
 
         if (hitInFrame.collider == null) return;
 

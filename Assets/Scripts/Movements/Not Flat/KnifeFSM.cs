@@ -39,13 +39,13 @@ public class KnifeFSM : MonoBehaviour
 
     public bool IsIdleToMove()
     {
-        Utility.RaycastWithCam(cam, out RaycastHit hit);
+        Utility.RaycastWithCam(cam, knife.peelingMeshLayerMask, out RaycastHit hit);
         return Input.GetMouseButton(0) && hit.collider != null && hit.collider.GetComponent<PeelingMesh>();
     }
 
     public bool IsMoveToIdle()
     {
-        Utility.RaycastWithCam(cam, out RaycastHit hit);
+        Utility.RaycastWithCam(cam, knife.peelingMeshLayerMask, out RaycastHit hit);
         return Input.GetMouseButtonUp(0) || hit.collider == null;
     }
 

@@ -162,7 +162,9 @@ MonoBehaviour:
   knifeVisual: {fileID: 6099751456757327970}
   smoothTime: 0.2
   knifeTurnSpeed: 2
-  velocity: 0
+  peelingMeshLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
   knifeMovementNoCamRayStateData:
     pressed: 1
     rayDir: {x: 0, y: 0, z: 1}
@@ -179,6 +181,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00adf6140f5dc8a438d47b7e465e2cfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CurrShellMesh: {fileID: 0}
 --- !u!1001 &6140171495781179662
 PrefabInstance:
   m_ObjectHideFlags: 0

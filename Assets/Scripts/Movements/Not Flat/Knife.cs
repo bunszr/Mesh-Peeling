@@ -10,5 +10,6 @@ public class Knife : MonoBehaviour, IKnife
     public float smoothTime = .1f;
     public float knifeTurnSpeed = 2;
     public float Velocity { get; set; }
+    public LayerMask peelingMeshLayerMask;
     public KnifeMovementNoCamRayStateData knifeMovementNoCamRayStateData;
 }
