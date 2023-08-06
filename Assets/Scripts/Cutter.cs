@@ -9,6 +9,8 @@ using UnityEngine.Profiling;
 
 public class Cutter : CutterBase
 {
+    IGetTriIndicesA _getTriIndicesA;
+
     public float vertexOffset = 0;
     public float delay = .2f;
     float nextTime;
@@ -30,6 +32,7 @@ public class Cutter : CutterBase
     {
         base.Start();
         peeledTriangleIndicesAtOnce = new NativeQueue<int>(Allocator.Persistent);
+        _getTriIndicesA = GetComponent<IGetTriIndicesA>();
     }
 
     private void Update()
@@ -39,8 +42,11 @@ public class Cutter : CutterBase
         NativeQueue<int> peelingTriIndicesNativeQueue = new NativeQueue<int>(Allocator.TempJob); // it is not working like the normal Queue<T>. See NativeQueue documentation
         NativeArray<bool> hasInsadeResult = new NativeArray<bool>(1, Allocator.TempJob);
 
+        NativeArray<int> triangleIndicesArray = _getTriIndicesA.GetIndices(this);
+
         JobMeshPeeler jobMeshPeeler = new JobMeshPeeler()
         {
+            triIndicesA = triangleIndicesArray,
             vertices = peelingMesh.vertices,
             uvs2ToClip = peelingMesh.uvs2ToClip,
             triangles = peelingMesh.triangles,
@@ -50,6 +56,7 @@ public class Cutter : CutterBase
             peelingLocalToWorldMatrix = peelingMesh.transform.localToWorldMatrix,
             shellWorldToLocalMatrix = shellControllerBase.CurrShellMesh.transform.worldToLocalMatrix,
             cutterCenterPosition = transform.position,
+            localP = peelingMesh.transform.worldToLocalMatrix.MultiplyPoint3x4(transform.position),
             cutterSqrRadius = Mathf.Pow(transform.localScale.x * .5f, 2),
             peelingTriIndicesQueue = peelingTriIndicesNativeQueue.AsParallelWriter(),
             peeledTriangleIndicesAtOnce = peeledTriangleIndicesAtOnce.AsParallelWriter(),
@@ -57,12 +64,13 @@ public class Cutter : CutterBase
             hasInsadeResult = hasInsadeResult,
         };
 
-        JobHandle jobHandleMeshPeeler = jobMeshPeeler.ScheduleParallel(peelingMesh.triangles.Length / 3, 102, default);
+        JobHandle jobHandleMeshPeeler = jobMeshPeeler.ScheduleParallel(triangleIndicesArray.Length, 102, default);
         jobHandleMeshPeeler.Complete();
 
         int peelingTriIndicesNativeQueueCount = peelingTriIndicesNativeQueue.Count;
         for (int i = 0; i < peelingTriIndicesNativeQueueCount; i++) peelingTriIndicesNormalQueue.Enqueue(peelingTriIndicesNativeQueue.Dequeue());
         peelingTriIndicesNativeQueue.Dispose();
+        triangleIndicesArray.Dispose();
 
 
         hasPeelingInFrame = hasInsadeResult[0];

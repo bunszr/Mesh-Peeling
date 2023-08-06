@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3108203601856006969}
   - component: {fileID: 4387380238604375937}
   - component: {fileID: 4387380238604375946}
+  - component: {fileID: 9147827653255216857}
   m_Layer: 6
   m_Name: Peeling Mesh Base
   m_TagString: Untagged
@@ -97,6 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 703f8e1545c4c594a896122e03b48309, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boundsAndTriangleIndicesData: {fileID: 0}
   mesh: {fileID: 0}
 --- !u!114 &4387380238604375946
 MonoBehaviour:
@@ -114,4 +116,20 @@ MonoBehaviour:
   subdivisionY: 6
   subdivisionZ: 3
   meshSplitterData: {fileID: 0}
+  showBounds: 0
+--- !u!114 &9147827653255216857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3468460853674126060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 980483c6fe08fa246911da7c022d98fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  subdivisionX: 3
+  subdivisionY: 3
+  subdivisionZ: 3
   showBounds: 0

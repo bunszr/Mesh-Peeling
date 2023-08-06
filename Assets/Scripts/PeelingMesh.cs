@@ -6,6 +6,7 @@ using UnityEngine;
 public class PeelingMesh : MonoBehaviour
 {
     ShellMeshContainer shellMeshContainer;
+    public BoundsAndTriangleIndicesData boundsAndTriangleIndicesData;
     public NativeMultiHashMap<int, int> multiHashMapVertIndexToSameVerticesIndices;
 
     [HideInInspector] public NativeArray<float3> vertices;

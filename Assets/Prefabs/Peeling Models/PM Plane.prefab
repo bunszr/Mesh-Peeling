@@ -73,11 +73,32 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4387380238604375937, guid: f281aa673d7901540aa06291ddcd1615,
+        type: 3}
+      propertyPath: boundsAndTriangleIndicesData
+      value: 
+      objectReference: {fileID: 11400000, guid: 27cdfe5109616714e9601e8be004766e,
+        type: 2}
     - target: {fileID: 4387380238604375946, guid: f281aa673d7901540aa06291ddcd1615,
         type: 3}
       propertyPath: meshSplitterData
       value: 
       objectReference: {fileID: 11400000, guid: c4550b22b03629443905d484dae00fbd,
         type: 2}
+    - target: {fileID: 9147827653255216857, guid: f281aa673d7901540aa06291ddcd1615,
+        type: 3}
+      propertyPath: subdivisionX
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9147827653255216857, guid: f281aa673d7901540aa06291ddcd1615,
+        type: 3}
+      propertyPath: subdivisionY
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9147827653255216857, guid: f281aa673d7901540aa06291ddcd1615,
+        type: 3}
+      propertyPath: subdivisionZ
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f281aa673d7901540aa06291ddcd1615, type: 3}

@@ -1,7 +1,7 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "MeshSplitterData", menuName = "Mesh-Peeling/MeshSplitterData", order = 0)]
-public class MeshSplitterData : ScriptableObject
+[CreateAssetMenu(fileName = "SameVertexIndexData", menuName = "Mesh-Peeling/SameVertexIndexData", order = 0)]
+public class SameVertexIndexData : ScriptableObject
 {
     public VertexAndSameVertexData[] vertexAndSameVertexDatas;
 

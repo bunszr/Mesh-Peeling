@@ -8,7 +8,8 @@ using UnityEngine;
 public struct JobMeshPeeler : IJobFor
 {
     // For peeling mesh
-    [ReadOnly, NativeDisableParallelForRestriction] public NativeArray<float3> vertices;
+    [ReadOnly] public NativeArray<int> triIndicesA;
+    [ReadOnly] public NativeArray<float3> vertices;
     [NativeDisableParallelForRestriction] public NativeArray<float2> uvs2ToClip;
     [ReadOnly] public NativeArray<int> triangles;
 
@@ -21,6 +22,7 @@ public struct JobMeshPeeler : IJobFor
     [ReadOnly] public float4x4 shellWorldToLocalMatrix;
 
     [ReadOnly] public float3 cutterCenterPosition;
+    [ReadOnly] public float3 localP;
     [ReadOnly] public float cutterSqrRadius;
     [ReadOnly] public float vertexOffset;
 
@@ -31,13 +33,12 @@ public struct JobMeshPeeler : IJobFor
 
     public void Execute(int index)
     {
-        int triIndexA = index * 3 + 0;
-        int triIndexB = index * 3 + 1;
-        int triIndexC = index * 3 + 2;
+        int triIndexA = triIndicesA[index] + 0;
+        int triIndexB = triIndicesA[index] + 1;
+        int triIndexC = triIndicesA[index] + 2;
 
         if (uvs2ToClip[triangles[triIndexA]].y < 0) return;
 
-        float3 localP = math.mul(peelingWorldToLocalMatrix, math.float4(cutterCenterPosition, 1)).xyz;
         bool hasInsade = math.distancesq(localP, vertices[triangles[triIndexA]]) < cutterSqrRadius &&
                          math.distancesq(localP, vertices[triangles[triIndexB]]) < cutterSqrRadius &&
                          math.distancesq(localP, vertices[triangles[triIndexC]]) < cutterSqrRadius;

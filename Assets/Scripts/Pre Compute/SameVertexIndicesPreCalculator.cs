@@ -3,14 +3,14 @@ using Sirenix.OdinInspector;
 using Unity.Collections;
 using UnityEngine;
 
-public class MeshSplitterPreCompute : MonoBehaviour
+public class SameVertexIndicesPreCalculator : MonoBehaviour
 {
     [SerializeField] int subdivisionX = 3;
     [SerializeField] int subdivisionY = 3;
     [SerializeField] int subdivisionZ = 3;
 
     SplitterData[] splitterDataArray;
-    public MeshSplitterData meshSplitterData;
+    public SameVertexIndexData meshSplitterData;
 
     [SerializeField] bool showBounds = false;
     Dictionary<int, SplitterData> dic;
@@ -44,7 +44,7 @@ public class MeshSplitterPreCompute : MonoBehaviour
     {
 #if UNITY_EDITOR
         vertices = GetComponent<MeshFilter>().sharedMesh.vertices;
-        meshSplitterData.vertexAndSameVertexDatas = new MeshSplitterData.VertexAndSameVertexData[vertices.Length];
+        meshSplitterData.vertexAndSameVertexDatas = new SameVertexIndexData.VertexAndSameVertexData[vertices.Length];
         CreateSubBounds();
         dic = new Dictionary<int, SplitterData>(vertices.Length);
         AssignVertexAccrodingSubBounds();
@@ -102,7 +102,7 @@ public class MeshSplitterPreCompute : MonoBehaviour
                 }
             }
             sameVertexIndices.RemoveAt(0);
-            meshSplitterData.vertexAndSameVertexDatas[i] = new MeshSplitterData.VertexAndSameVertexData(sameVertexIndices.Count != 0 ? sameVertexIndices.ToArray() : null);
+            meshSplitterData.vertexAndSameVertexDatas[i] = new SameVertexIndexData.VertexAndSameVertexData(sameVertexIndices.Count != 0 ? sameVertexIndices.ToArray() : null);
         }
     }
 
