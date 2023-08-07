@@ -81,7 +81,28 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 4387380238604375946, guid: f281aa673d7901540aa06291ddcd1615,
         type: 3}
+      propertyPath: subdivisionX
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4387380238604375946, guid: f281aa673d7901540aa06291ddcd1615,
+        type: 3}
+      propertyPath: subdivisionY
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 4387380238604375946, guid: f281aa673d7901540aa06291ddcd1615,
+        type: 3}
+      propertyPath: subdivisionZ
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4387380238604375946, guid: f281aa673d7901540aa06291ddcd1615,
+        type: 3}
       propertyPath: meshSplitterData
+      value: 
+      objectReference: {fileID: 11400000, guid: b82e58f43ef8ae748a0ac17bfadf27c2,
+        type: 2}
+    - target: {fileID: 4387380238604375946, guid: f281aa673d7901540aa06291ddcd1615,
+        type: 3}
+      propertyPath: sameVertexIndexData
       value: 
       objectReference: {fileID: 11400000, guid: b82e58f43ef8ae748a0ac17bfadf27c2,
         type: 2}

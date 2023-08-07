@@ -9,52 +9,57 @@ public class SameVertexIndicesPreCalculator : MonoBehaviour
     [SerializeField] int subdivisionY = 3;
     [SerializeField] int subdivisionZ = 3;
 
-    SplitterData[] splitterDataArray;
-    public SameVertexIndexData meshSplitterData;
+    [SerializeField] bool visualizeBounds = false;
 
-    [SerializeField] bool showBounds = false;
-    Dictionary<int, SplitterData> dic;
-
-    Vector3[] vertices;
+    public SameVertexIndexData sameVertexIndexData;
 
     private void Start()
     {
         PeelingMesh peelingMesh = GetComponent<PeelingMesh>();
-        peelingMesh.multiHashMapVertIndexToSameVerticesIndices = new Unity.Collections.NativeMultiHashMap<int, int>(1000, Allocator.Persistent);
 
-        if (meshSplitterData.vertexAndSameVertexDatas == null || meshSplitterData.vertexAndSameVertexDatas.Length == 0)
+        if (sameVertexIndexData.vertexAndSameVertexDatas == null || sameVertexIndexData.vertexAndSameVertexDatas.Length == 0)
         {
-            Debug.LogError(("vertexAndSameVertexDatas is null"));
+            Debug.LogError(("sameVertexIndexData is null. Created and assign it"));
             return;
         }
 
-        for (int i = 0; i < meshSplitterData.vertexAndSameVertexDatas.Length; i++)
+        if (sameVertexIndexData.vertexAndSameVertexDatas.Length != peelingMesh.vertices.Length)
         {
-            if (meshSplitterData.vertexAndSameVertexDatas[i].vertexIndices == null) continue;
+            Debug.LogError("The mesh has changed. Press PreCalculate button to calculate SameVertexIndexData", sameVertexIndexData);
+            return;
+        }
 
-            for (int j = 0; j < meshSplitterData.vertexAndSameVertexDatas[i].vertexIndices.Length; j++)
+        peelingMesh.multiHashMapVertIndexToSameVerticesIndices = new Unity.Collections.NativeMultiHashMap<int, int>(1000, Allocator.Persistent);
+
+        for (int i = 0; i < sameVertexIndexData.vertexAndSameVertexDatas.Length; i++)
+        {
+            if (sameVertexIndexData.vertexAndSameVertexDatas[i].vertexIndices == null) continue;
+
+            for (int j = 0; j < sameVertexIndexData.vertexAndSameVertexDatas[i].vertexIndices.Length; j++)
             {
-                peelingMesh.multiHashMapVertIndexToSameVerticesIndices.Add(i, meshSplitterData.vertexAndSameVertexDatas[i].vertexIndices[j]);
+                peelingMesh.multiHashMapVertIndexToSameVerticesIndices.Add(i, sameVertexIndexData.vertexAndSameVertexDatas[i].vertexIndices[j]);
             }
         }
     }
 
+#if UNITY_EDITOR
     [Button]
     public void PreCalculate()
     {
-#if UNITY_EDITOR
-        vertices = GetComponent<MeshFilter>().sharedMesh.vertices;
-        meshSplitterData.vertexAndSameVertexDatas = new SameVertexIndexData.VertexAndSameVertexData[vertices.Length];
-        CreateSubBounds();
-        dic = new Dictionary<int, SplitterData>(vertices.Length);
-        AssignVertexAccrodingSubBounds();
-        CalculateSameVertexIndices();
+        Vector3[] vertices = GetComponent<MeshFilter>().sharedMesh.vertices;
+        SplitterData[] splitterDataArray = new SplitterData[subdivisionX * subdivisionY * subdivisionZ];
+        SplitterData[] dictionarySplitterData = new SplitterData[vertices.Length];
+        sameVertexIndexData.vertexAndSameVertexDatas = new SameVertexIndexData.VertexAndSameVertexData[vertices.Length];
 
-        UnityEditor.EditorUtility.SetDirty(meshSplitterData);
-#endif
+        CreateSubBounds(splitterDataArray);
+        AssignVertexAccrodingSubBounds(vertices, splitterDataArray, dictionarySplitterData);
+        CalculateSameVertexIndices(vertices, dictionarySplitterData);
+
+        UnityEditor.EditorUtility.SetDirty(sameVertexIndexData);
     }
+#endif
 
-    private void CreateSubBounds()
+    private void CreateSubBounds(SplitterData[] splitterDataArray)
     {
         Mesh mesh = GetComponent<MeshFilter>().sharedMesh;
         Bounds bounds = mesh.bounds;
@@ -65,7 +70,6 @@ public class SameVertexIndicesPreCalculator : MonoBehaviour
         float stepY = size.y / subdivisionY;
         float stepZ = size.z / subdivisionZ;
 
-        splitterDataArray = new SplitterData[subdivisionX * subdivisionY * subdivisionZ];
         int index = 0;
 
         for (int x = 0; x < subdivisionX; x++)
@@ -84,29 +88,7 @@ public class SameVertexIndicesPreCalculator : MonoBehaviour
         }
     }
 
-    private void CalculateSameVertexIndices()
-    {
-        List<int> sameVertexIndices = new List<int>();
-        for (int i = 0; i < vertices.Length; i++)
-        {
-            sameVertexIndices.Clear();
-            SplitterData splitterData = dic[i];
-            if (splitterData.vertexIndices == null) continue;
-
-            for (int k = 0; k < splitterData.vertexIndices.Count; k++)
-            {
-                float sqrDst = Vector3.SqrMagnitude(vertices[i] - vertices[splitterData.vertexIndices[k]]);
-                if (sqrDst < .000001f)
-                {
-                    sameVertexIndices.Add(splitterData.vertexIndices[k]);
-                }
-            }
-            sameVertexIndices.RemoveAt(0);
-            meshSplitterData.vertexAndSameVertexDatas[i] = new SameVertexIndexData.VertexAndSameVertexData(sameVertexIndices.Count != 0 ? sameVertexIndices.ToArray() : null);
-        }
-    }
-
-    private void AssignVertexAccrodingSubBounds()
+    private void AssignVertexAccrodingSubBounds(Vector3[] vertices, SplitterData[] splitterDataArray, SplitterData[] dictionarySplitterData)
     {
         for (int i = 0; i < vertices.Length; i++)
         {
@@ -120,15 +102,37 @@ public class SameVertexIndicesPreCalculator : MonoBehaviour
                     break;
                 }
             }
-            // if (splitterData.vertexIndices == null) Debug.LogError("aaa");
-            dic.Add(i, splitterData);
+            dictionarySplitterData[i] = splitterData;
         }
     }
 
-    private void OnDrawGizmos()
+    private void CalculateSameVertexIndices(Vector3[] vertices, SplitterData[] dicSplitterData)
     {
-        if (showBounds && splitterDataArray != null)
+        List<int> sameVertexIndices = new List<int>();
+        for (int i = 0; i < vertices.Length; i++)
         {
+            sameVertexIndices.Clear();
+            SplitterData splitterData = dicSplitterData[i];
+            if (splitterData.vertexIndices == null) continue;
+
+            for (int k = 0; k < splitterData.vertexIndices.Count; k++)
+            {
+                if (splitterData.vertexIndices[k] == i) continue;
+
+                float sqrDst = Vector3.SqrMagnitude(vertices[i] - vertices[splitterData.vertexIndices[k]]);
+                if (sqrDst < .000001f) sameVertexIndices.Add(splitterData.vertexIndices[k]);
+            }
+            sameVertexIndexData.vertexAndSameVertexDatas[i] = new SameVertexIndexData.VertexAndSameVertexData(sameVertexIndices.Count != 0 ? sameVertexIndices.ToArray() : null);
+        }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        if (visualizeBounds)
+        {
+            Gizmos.matrix = transform.localToWorldMatrix;
+            SplitterData[] splitterDataArray = new SplitterData[subdivisionX * subdivisionY * subdivisionZ];
+            CreateSubBounds(splitterDataArray);
             for (int i = 0; i < splitterDataArray.Length; i++)
             {
                 Gizmos.DrawWireCube(splitterDataArray[i].bounds.center, splitterDataArray[i].bounds.size);
@@ -136,7 +140,6 @@ public class SameVertexIndicesPreCalculator : MonoBehaviour
         }
     }
 
-    [System.Serializable]
     public struct SplitterData
     {
         public readonly Bounds bounds;
@@ -148,6 +151,4 @@ public class SameVertexIndicesPreCalculator : MonoBehaviour
             this.vertexIndices = new List<int>();
         }
     }
-
-
 }
