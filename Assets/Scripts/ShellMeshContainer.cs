@@ -47,6 +47,7 @@ public class ShellMeshContainer : MonoBehaviour
         {
             shell.mesh = shell.GetComponent<MeshFilter>().mesh; // This process takes 8ms.
             shell.vertices = new NativeArray<float3>(vertexOrTriangleIndicesCount, Allocator.Persistent);
+            shell.normals = new NativeArray<float3>(vertexOrTriangleIndicesCount, Allocator.Persistent);
             shell.uvs = new NativeArray<float2>(vertexOrTriangleIndicesCount, Allocator.Persistent);
             shell.uvs2ToClip = new NativeArray<float2>(vertexOrTriangleIndicesCount, Allocator.Persistent);
             shell.triangles = new NativeArray<int>(vertexOrTriangleIndicesCount, Allocator.Persistent);

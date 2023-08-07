@@ -87,12 +87,11 @@ public class Cutter : CutterBase
 
             LimitPeelingTriIndicesLength();
             RunJobVertexSnapper(jobHandleMeshPeeler);
+            JobCalculatePeeledTriIndicesNormal();
 
-            if (shellControllerBase.CurrShellMesh != null)
-            {
-                shellControllerBase.CurrShellMesh.mesh.SetVertices(shellControllerBase.CurrShellMesh.vertices);
-                shellControllerBase.CurrShellMesh.mesh.SetUVs(1, shellControllerBase.CurrShellMesh.uvs2ToClip);
-            }
+            shellControllerBase.CurrShellMesh.mesh.SetVertices(shellControllerBase.CurrShellMesh.vertices);
+            shellControllerBase.CurrShellMesh.mesh.SetUVs(1, shellControllerBase.CurrShellMesh.uvs2ToClip);
+            shellControllerBase.CurrShellMesh.mesh.SetNormals(shellControllerBase.CurrShellMesh.normals);
             peelingMesh.mesh.SetUVs(1, peelingMesh.uvs2ToClip);
 
             nextTime = Time.time + delay;
@@ -169,6 +168,24 @@ public class Cutter : CutterBase
         vertexKeyFromPeelingTriIndices.Dispose();
     }
 
+    void JobCalculatePeeledTriIndicesNormal()
+    {
+        NativeArray<int> peeledTriIndicesAtOnceArray = peeledTriangleIndicesAtOnce.ToArray(Allocator.TempJob);
+
+        JobCalculateNormals jobCalculateNormals = new JobCalculateNormals()
+        {
+            shellVertices = shellControllerBase.CurrShellMesh.vertices,
+            shellTriangles = shellControllerBase.CurrShellMesh.triangles,
+            peeledTriIndicesAtOnceArray = peeledTriIndicesAtOnceArray,
+            shellNormals = shellControllerBase.CurrShellMesh.normals,
+        };
+
+        JobHandle jobHandle = jobCalculateNormals.ScheduleParallel(peeledTriIndicesAtOnceArray.Length, 9, default);
+        jobHandle.Complete();
+
+        peeledTriIndicesAtOnceArray.Dispose();
+    }
+
     private void GenerateShellMeshFromShellMesh()
     {
         if (peeledTriangleIndicesAtOnce.Count <= 3) return;
@@ -183,6 +200,7 @@ public class Cutter : CutterBase
         JobGenerateMesh jobGenerateMesh = new JobGenerateMesh()
         {
             shellVertices = shellControllerBase.CurrShellMesh.vertices,
+            shellNormals = shellControllerBase.CurrShellMesh.normals,
             peelingMeshUvs = peelingMesh.uvs,
             peelingMeshTriangles = peelingMesh.triangles,
             newMeshVertices = newMeshVertices,
@@ -203,8 +221,10 @@ public class Cutter : CutterBase
         ShellMeshCollision shellMeshCollision = Instantiate(shellMeshCollisionPrefab, shellControllerBase.CurrShellMesh.transform.position, shellControllerBase.CurrShellMesh.transform.rotation);
         shellMeshCollision.meshFilter.mesh = mesh;
         shellMeshCollision.meshCollider.sharedMesh = mesh;
+        shellMeshCollision.meshRenderer.SetPropertyBlock(peelingMesh.materialPropertyBlock);
 
         newMeshVertices.Dispose();
+        newMeshNormals.Dispose();
         newMeshUVs.Dispose();
         newMeshTriangles.Dispose();
         peeledTriIndicesAtOnceArray.Dispose();

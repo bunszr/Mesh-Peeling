@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3610114837148687714}
   - component: {fileID: 2790464931724815676}
+  - component: {fileID: 7327193176635220252}
   m_Layer: 0
   m_Name: Shell Mesh Container
   m_TagString: Untagged
@@ -46,3 +47,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shellMeshPrefab: {fileID: 0}
   CurrShellMesh: {fileID: 0}
+--- !u!114 &7327193176635220252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3379770038523229751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b7bf0dcab694564a9d6febadb2a9f7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

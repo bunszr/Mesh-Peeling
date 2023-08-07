@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4387380238604375937}
   - component: {fileID: 4387380238604375946}
   - component: {fileID: 9147827653255216857}
+  - component: {fileID: 4781699726701069056}
   m_Layer: 6
   m_Name: Peeling Mesh Base
   m_TagString: Untagged
@@ -64,7 +65,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e985162b61fc3e649843836df07809d1, type: 2}
+  - {fileID: 2100000, guid: 3ad5955909b0b8a4abcc14b1cc157eb0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -98,6 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 703f8e1545c4c594a896122e03b48309, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  meshRenderer: {fileID: 3108203601856006969}
   boundsAndTriangleIndicesData: {fileID: 0}
   mesh: {fileID: 0}
 --- !u!114 &4387380238604375946
@@ -133,3 +135,19 @@ MonoBehaviour:
   subdivisionY: 3
   subdivisionZ: 3
   showBounds: 0
+--- !u!114 &4781699726701069056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3468460853674126060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b7cd2bb4ab090f43b838f8f0855c828, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  frontColor: {r: 1, g: 1, b: 1, a: 1}
+  frontTex: {fileID: 2800000, guid: cdd76c24e1192954f9ebbf9cb42b5d81, type: 3}
+  backColor: {r: 0, g: 0, b: 0, a: 0}
+  backTex: {fileID: 2800000, guid: cdd76c24e1192954f9ebbf9cb42b5d81, type: 3}

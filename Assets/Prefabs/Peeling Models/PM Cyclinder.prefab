@@ -85,6 +85,26 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: a74fde1da385bf04e89ba6bed59432a2,
         type: 2}
+    - target: {fileID: 4781699726701069056, guid: f281aa673d7901540aa06291ddcd1615,
+        type: 3}
+      propertyPath: mainTex
+      value: 
+      objectReference: {fileID: 2800000, guid: cdd76c24e1192954f9ebbf9cb42b5d81, type: 3}
+    - target: {fileID: 4781699726701069056, guid: f281aa673d7901540aa06291ddcd1615,
+        type: 3}
+      propertyPath: mainColor.b
+      value: 0.0990566
+      objectReference: {fileID: 0}
+    - target: {fileID: 4781699726701069056, guid: f281aa673d7901540aa06291ddcd1615,
+        type: 3}
+      propertyPath: mainColor.g
+      value: 0.0990566
+      objectReference: {fileID: 0}
+    - target: {fileID: 4781699726701069056, guid: f281aa673d7901540aa06291ddcd1615,
+        type: 3}
+      propertyPath: mainColor.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8482201777526883208, guid: f281aa673d7901540aa06291ddcd1615,
         type: 3}
       propertyPath: boundsAndVertexIndicesData

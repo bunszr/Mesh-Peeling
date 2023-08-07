@@ -53,7 +53,7 @@ MeshRenderer:
   m_GameObject: {fileID: 7229902805878310402}
   m_Enabled: 1
   m_CastShadows: 1
-  m_ReceiveShadows: 1
+  m_ReceiveShadows: 0
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
   m_MotionVectors: 1
@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 962c59023d3cbb943821461de3400973, type: 2}
+  - {fileID: 2100000, guid: 3ad5955909b0b8a4abcc14b1cc157eb0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -130,4 +130,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 205310076283733571}
   meshFilter: {fileID: 6544939642305548844}
+  meshRenderer: {fileID: 8343022508188816453}
   meshCollider: {fileID: 6544939642305548843}

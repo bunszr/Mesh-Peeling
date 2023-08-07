@@ -85,6 +85,36 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: b82e58f43ef8ae748a0ac17bfadf27c2,
         type: 2}
+    - target: {fileID: 4781699726701069056, guid: f281aa673d7901540aa06291ddcd1615,
+        type: 3}
+      propertyPath: backColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4781699726701069056, guid: f281aa673d7901540aa06291ddcd1615,
+        type: 3}
+      propertyPath: backColor.g
+      value: 0.7195975
+      objectReference: {fileID: 0}
+    - target: {fileID: 4781699726701069056, guid: f281aa673d7901540aa06291ddcd1615,
+        type: 3}
+      propertyPath: backColor.r
+      value: 0.2028302
+      objectReference: {fileID: 0}
+    - target: {fileID: 4781699726701069056, guid: f281aa673d7901540aa06291ddcd1615,
+        type: 3}
+      propertyPath: frontColor.b
+      value: 0.2569865
+      objectReference: {fileID: 0}
+    - target: {fileID: 4781699726701069056, guid: f281aa673d7901540aa06291ddcd1615,
+        type: 3}
+      propertyPath: frontColor.g
+      value: 0.990566
+      objectReference: {fileID: 0}
+    - target: {fileID: 4781699726701069056, guid: f281aa673d7901540aa06291ddcd1615,
+        type: 3}
+      propertyPath: frontColor.r
+      value: 0.46786448
+      objectReference: {fileID: 0}
     - target: {fileID: 8482201777526883208, guid: f281aa673d7901540aa06291ddcd1615,
         type: 3}
       propertyPath: boundsAndVertexIndicesData

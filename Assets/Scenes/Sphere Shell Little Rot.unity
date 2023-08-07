@@ -131,6 +131,41 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1365359423}
     m_Modifications:
+    - target: {fileID: 3163097560543451896, guid: 5e393ff543f3c7745a58c09b7b7f81a6,
+        type: 3}
+      propertyPath: backTex
+      value: 
+      objectReference: {fileID: 2800000, guid: fc24c3aa958851a4a875c72112fd9105, type: 3}
+    - target: {fileID: 3163097560543451896, guid: 5e393ff543f3c7745a58c09b7b7f81a6,
+        type: 3}
+      propertyPath: backColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3163097560543451896, guid: 5e393ff543f3c7745a58c09b7b7f81a6,
+        type: 3}
+      propertyPath: backColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3163097560543451896, guid: 5e393ff543f3c7745a58c09b7b7f81a6,
+        type: 3}
+      propertyPath: backColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3163097560543451896, guid: 5e393ff543f3c7745a58c09b7b7f81a6,
+        type: 3}
+      propertyPath: frontColor.b
+      value: 0.99215686
+      objectReference: {fileID: 0}
+    - target: {fileID: 3163097560543451896, guid: 5e393ff543f3c7745a58c09b7b7f81a6,
+        type: 3}
+      propertyPath: frontColor.g
+      value: 0.5348383
+      objectReference: {fileID: 0}
+    - target: {fileID: 3163097560543451896, guid: 5e393ff543f3c7745a58c09b7b7f81a6,
+        type: 3}
+      propertyPath: frontColor.r
+      value: 0.2588235
+      objectReference: {fileID: 0}
     - target: {fileID: 5967327231711193518, guid: 5e393ff543f3c7745a58c09b7b7f81a6,
         type: 3}
       propertyPath: m_RootOrder
@@ -209,11 +244,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Sphere Shell
-      objectReference: {fileID: 0}
-    - target: {fileID: 3800599020057032503, guid: 7e6bb363cf2872d4386c234d29a720b9,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5025382300288264953, guid: 7e6bb363cf2872d4386c234d29a720b9,
         type: 3}
