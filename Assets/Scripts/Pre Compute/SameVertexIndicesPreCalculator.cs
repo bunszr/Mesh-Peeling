@@ -63,6 +63,7 @@ public class SameVertexIndicesPreCalculator : MonoBehaviour
     {
         Mesh mesh = GetComponent<MeshFilter>().sharedMesh;
         Bounds bounds = mesh.bounds;
+        bounds.Expand(.1f);
         Vector3 size = bounds.size;
         Vector3 min = bounds.min;
 

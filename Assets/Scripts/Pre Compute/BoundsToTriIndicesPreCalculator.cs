@@ -10,14 +10,19 @@ public class BoundsToTriIndicesPreCalculator : MonoBehaviour
     [SerializeField] int subdivisionY = 2;
     [SerializeField] int subdivisionZ = 2;
 
-    [SerializeField] bool showBounds = false;
+    [SerializeField] bool visualizeBounds = false;
 
     private void Start()
     {
         PeelingMesh peelingMesh = GetComponent<PeelingMesh>();
         if (peelingMesh.boundsAndTriangleIndicesData == null || peelingMesh.boundsAndTriangleIndicesData.data == null || peelingMesh.boundsAndTriangleIndicesData.data.Length == 0)
         {
-            Debug.LogError(("boundsAndTriangleIndicesData is null", gameObject));
+            Debug.LogError(("boundsAndTriangleIndicesData is null", peelingMesh));
+        }
+
+        if (peelingMesh.triangles.Length / 3 != peelingMesh.boundsAndTriangleIndicesData.data.Where(x => x.triangleIndicesA != null).Sum(x => x.triangleIndicesA.Length))
+        {
+            Debug.LogError(("boundsAndTriangleIndicesData has changed. Recalculate!", peelingMesh));
         }
     }
 
@@ -28,15 +33,13 @@ public class BoundsToTriIndicesPreCalculator : MonoBehaviour
         BoundsAndTriangleIndicesData boundsAndTriangleIndicesData = GetComponent<PeelingMesh>().boundsAndTriangleIndicesData;
         if (boundsAndTriangleIndicesData == null)
         {
-            Debug.LogError("not found " + boundsAndTriangleIndicesData.name);
+            Debug.LogError("not found boundsAndTriangleIndicesData", transform);
             return;
         }
 
         Vector3[] vertices = GetComponent<MeshFilter>().sharedMesh.vertices;
         int[] triangles = GetComponent<MeshFilter>().sharedMesh.triangles;
         SplitterData[] splitterDataArray = new SplitterData[subdivisionX * subdivisionY * subdivisionZ];
-        Debug.LogError(splitterDataArray.Length);
-        Debug.LogError(subdivisionX * subdivisionY * subdivisionZ);
         boundsAndTriangleIndicesData.data = new BoundsAndTriangleIndicesData.Data[splitterDataArray.Length];
 
         CreateSubBounds(splitterDataArray);
@@ -49,6 +52,7 @@ public class BoundsToTriIndicesPreCalculator : MonoBehaviour
     {
         Mesh mesh = GetComponent<MeshFilter>().sharedMesh;
         Bounds bounds = mesh.bounds;
+        bounds.Expand(.1f); // If does not expanded. Some bounds does not contain vertex
         Vector3 size = bounds.size;
         Vector3 min = bounds.min;
 
@@ -94,7 +98,20 @@ public class BoundsToTriIndicesPreCalculator : MonoBehaviour
             {
                 boundsAndTriangleIndicesData.data[i] = new BoundsAndTriangleIndicesData.Data(splitterDataArray[i].bounds, splitterDataArray[i].triangleIndices.ToArray());
             }
+        }
+    }
 
+    private void OnDrawGizmosSelected()
+    {
+        if (visualizeBounds)
+        {
+            Gizmos.matrix = transform.localToWorldMatrix;
+            SplitterData[] splitterDataArray = new SplitterData[subdivisionX * subdivisionY * subdivisionZ];
+            CreateSubBounds(splitterDataArray);
+            for (int i = 0; i < splitterDataArray.Length; i++)
+            {
+                Gizmos.DrawWireCube(splitterDataArray[i].bounds.center, splitterDataArray[i].bounds.size);
+            }
         }
     }
 
