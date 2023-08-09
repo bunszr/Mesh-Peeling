@@ -6,7 +6,6 @@ public class CutterWithTime : CutterBase
 {
     float nextTime;
     bool hasPeelStart = false;
-    bool hasPeelingInFrame = false;
     public float delay = .05f;
 
     protected override void Start()
@@ -14,7 +13,7 @@ public class CutterWithTime : CutterBase
         base.Start();
     }
 
-    private void Update()
+    public override void CutterUpdate()
     {
         NativeArray<int> travelingTriangleIndicesAArray = _getTriIndicesA.GetIndices(this);
 
@@ -36,7 +35,7 @@ public class CutterWithTime : CutterBase
             JobSnapVertices(lastPeeledTriIndicesNormalQueue);
             JobCalculatePeeledTriIndicesNormal(peeledTriangleIndicesAtOnce);
 
-            UpdateMesh();
+            UpdateShellMesh();
         }
 
         if (hasPeelStart)

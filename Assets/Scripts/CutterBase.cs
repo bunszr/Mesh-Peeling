@@ -6,7 +6,7 @@ using Unity.Jobs;
 using Unity.Mathematics;
 using UnityEngine;
 
-public abstract class CutterBase : MonoBehaviour
+public abstract class CutterBase : MonoBehaviour, ICutterUpdater
 {
     protected IGetTriIndicesA _getTriIndicesA;
 
@@ -24,8 +24,10 @@ public abstract class CutterBase : MonoBehaviour
     public int maxLastPeeledTriangleIndicesLength = 140;
 
     public float vertexOffset = 0;
+    protected bool hasPeelingInFrame = false;
 
     public float PeelingTriangleIndexCount { get; protected set; }
+    public bool HasCut => hasPeelingInFrame;
 
     protected virtual void Start()
     {
@@ -36,12 +38,11 @@ public abstract class CutterBase : MonoBehaviour
         _getTriIndicesA = GetComponent<IGetTriIndicesA>();
     }
 
-    public void UpdateMesh()
+    public void UpdateShellMesh()
     {
         shellControllerBase.CurrShellMesh.mesh.SetVertices(shellControllerBase.CurrShellMesh.vertices);
         shellControllerBase.CurrShellMesh.mesh.SetUVs(1, shellControllerBase.CurrShellMesh.uvs2ToClip);
         shellControllerBase.CurrShellMesh.mesh.SetNormals(shellControllerBase.CurrShellMesh.normals);
-        peelingMesh.mesh.SetUVs(1, peelingMesh.uvs2ToClip);
     }
 
     public void PeelMesh(NativeArray<int> travelingTriangleIndicesAArray, out int peeledTriIndicesCountInFrame)
@@ -210,4 +211,7 @@ public abstract class CutterBase : MonoBehaviour
         peeledTriIndicesAtOnceArray.Dispose();
     }
 
+    public virtual void CutterUpdate()
+    {
+    }
 }

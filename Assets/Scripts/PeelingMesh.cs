@@ -47,6 +47,11 @@ public class PeelingMesh : MonoBehaviour
         jobDataSetter.ScheduleParallel(VertexOrTriangleIndicesCount, 1024, default).Complete();
     }
 
+    public void UpdateMeshUv2ToClip()
+    {
+        mesh.SetUVs(1, uvs2ToClip);
+    }
+
     protected virtual void OnDisable()
     {
         vertices.Dispose();

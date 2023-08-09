@@ -7,7 +7,6 @@ public class CutterKnife : CutterBase
     float nextTime;
     bool hasPeelStart = false;
     bool hasPressed = false;
-    bool hasPeelingInFrame = false;
     public float delay = .05f;
 
     protected override void Start()
@@ -15,7 +14,7 @@ public class CutterKnife : CutterBase
         base.Start();
     }
 
-    private void Update()
+    public override void CutterUpdate()
     {
         if (Input.GetMouseButtonDown(0)) hasPressed = true;
         if (!hasPressed) return;
@@ -43,7 +42,7 @@ public class CutterKnife : CutterBase
             JobSnapVertices(lastPeeledTriIndicesNormalQueue);
             JobCalculatePeeledTriIndicesNormal(peeledTriangleIndicesAtOnce);
 
-            UpdateMesh();
+            UpdateShellMesh();
         }
 
         if (hasPeelStart)
