@@ -7,7 +7,7 @@ using Unity.Jobs;
 public class ShellMeshContainer : MonoBehaviour
 {
     public ShellMeshBase shellMeshPrefab;
-    [Sirenix.OdinInspector.ReadOnly, Sirenix.OdinInspector.ShowInInspector] Queue<ShellMeshBase> peelingShellMeshQueue;
+    Queue<ShellMeshBase> peelingShellMeshQueue;
 
     [HideInInspector] public NativeArray<float3> vertices;
     [HideInInspector] public NativeArray<float3> normals;

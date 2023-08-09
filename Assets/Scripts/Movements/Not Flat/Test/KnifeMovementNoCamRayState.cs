@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Linq;
-using DG.Tweening;
 using FSM;
 using UnityEngine;
 using UnityEngine.EventSystems;

@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Sirenix.OdinInspector;
+using NaughtyAttributes;
 using Unity.Collections;
 using UnityEngine;
 

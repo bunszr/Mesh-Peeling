@@ -1,8 +1,6 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using DG.Tweening;
-using Sirenix.OdinInspector;
 using System.Linq;
 using Random = UnityEngine.Random;
 

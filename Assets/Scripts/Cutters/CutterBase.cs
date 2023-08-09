@@ -1,6 +1,4 @@
 using System.Collections.Generic;
-using DG.Tweening;
-using Sirenix.OdinInspector;
 using Unity.Collections;
 using Unity.Jobs;
 using Unity.Mathematics;

@@ -1,9 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using Sirenix.OdinInspector;
 using FSM;
-
 public class KnifeFSM : MonoBehaviour
 {
     PeelingMesh peelingMesh;
@@ -55,8 +53,8 @@ public class KnifeFSM : MonoBehaviour
     }
 
 #if UNITY_EDITOR
-    [ReadOnly, ShowInInspector] List<string> states = new List<string>();
-    [ReadOnly, ShowInInspector] string activeStateName = "sss";
+    List<string> states = new List<string>();
+    string activeStateName = "sss";
     private void LateUpdate()
     {
         if (fsm != null && activeStateName != fsm.ActiveStateName)

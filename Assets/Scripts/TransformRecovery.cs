@@ -1,4 +1,3 @@
-using DG.Tweening;
 using UnityEngine;
 
 public struct TransformRecovery
@@ -43,19 +42,5 @@ public struct TransformRecovery
         transform.position = position;
         transform.rotation = rotation;
         transform.localScale = scale;
-    }
-
-    public Tween ResetWorldWithAnim(float duration)
-    {
-        transform.DOScale(scale, duration);
-        transform.DORotate(rotation.eulerAngles, duration);
-        return transform.DOMove(position, duration);
-    }
-
-    public Tween ResetLocalWithAnim(float duration)
-    {
-        transform.DOScale(scale, duration);
-        transform.DOLocalRotate(localRotation.eulerAngles, duration);
-        return transform.DOLocalMove(localPosition, duration);
     }
 }

@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using Sirenix.OdinInspector;
-using Unity.Collections;
+using NaughtyAttributes;
 using UnityEngine;
 
 public class BoundsToTriIndicesPreCalculator : MonoBehaviour
