@@ -135,7 +135,7 @@ PrefabInstance:
         type: 3}
       propertyPath: backTex
       value: 
-      objectReference: {fileID: 2800000, guid: fc24c3aa958851a4a875c72112fd9105, type: 3}
+      objectReference: {fileID: 2800000, guid: 1ad7229e256480541aca378e842cc663, type: 3}
     - target: {fileID: 3163097560543451896, guid: 5e393ff543f3c7745a58c09b7b7f81a6,
         type: 3}
       propertyPath: backColor.b
@@ -447,7 +447,7 @@ PrefabInstance:
     - target: {fileID: 3956534783557323463, guid: 82cf7bb5fce2e2e428c98d92ced1e4d4,
         type: 3}
       propertyPath: maxLastPeeledTriangleIndicesLength
-      value: 200
+      value: 350
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 82cf7bb5fce2e2e428c98d92ced1e4d4, type: 3}

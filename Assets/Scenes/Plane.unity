@@ -286,16 +286,16 @@ PrefabInstance:
         type: 3}
       propertyPath: frontTex
       value: 
-      objectReference: {fileID: 2800000, guid: fc24c3aa958851a4a875c72112fd9105, type: 3}
+      objectReference: {fileID: 2800000, guid: 1ad7229e256480541aca378e842cc663, type: 3}
     - target: {fileID: 3163097560543451896, guid: abcb718e8bee0b940b18c65f5b16554b,
         type: 3}
       propertyPath: backColor.b
-      value: 1
+      value: 0.735849
       objectReference: {fileID: 0}
     - target: {fileID: 3163097560543451896, guid: abcb718e8bee0b940b18c65f5b16554b,
         type: 3}
       propertyPath: backColor.g
-      value: 0.8174324
+      value: 0.6001896
       objectReference: {fileID: 0}
     - target: {fileID: 3163097560543451896, guid: abcb718e8bee0b940b18c65f5b16554b,
         type: 3}

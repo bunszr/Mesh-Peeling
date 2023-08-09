@@ -163,7 +163,7 @@ PrefabInstance:
     - target: {fileID: 4532269334805118958, guid: 455131372e14b0449919dcceb507418d,
         type: 3}
       propertyPath: m_Name
-      value: Cutter
+      value: Cutter Knife
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 455131372e14b0449919dcceb507418d, type: 3}
@@ -202,11 +202,9 @@ MonoBehaviour:
   shellMeshCollisionPrefab: {fileID: -1930387975973678989, guid: 5a5d2b3e272f5ef4e8b3597f0aa21931,
     type: 3}
   shellControllerBase: {fileID: 0}
+  maxLastPeeledTriangleIndicesLength: 140
   vertexOffset: 0
-  delay: 0.05
-  maxPeelingTriangle: 140
-  hasPressed: 0
-  hasPeelingInFrame: 0
+  delay: 0.04
 --- !u!4 &3872083632338902688 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3119637867814238858, guid: 455131372e14b0449919dcceb507418d,

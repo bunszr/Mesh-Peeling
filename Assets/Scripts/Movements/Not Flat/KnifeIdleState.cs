@@ -12,6 +12,7 @@ public class KnifeIdleState : KnifeStateBase
     TransformRecovery transformRecovery;
     TransformRecovery knifeVisualTransformRecovery;
     Vector3 vel;
+    Vector3 targetLocalPos;
 
     public KnifeIdleState(MonoBehaviour mono, bool needsExitTime) : base(mono, needsExitTime)
     {
@@ -25,11 +26,15 @@ public class KnifeIdleState : KnifeStateBase
 
     public override void OnEnter()
     {
+        targetLocalPos = new Vector3(transform.localPosition.x, transform.localPosition.y, transformRecovery.localPosition.z);
     }
 
     public override void OnLogic()
     {
-        transform.localPosition = Vector3.SmoothDamp(transform.localPosition, transformRecovery.localPosition, ref vel, knife.knifeIdleStateData.smoothTimeMovement);
+        if (Vector3.SqrMagnitude(transform.localPosition - targetLocalPos) < .001f) targetLocalPos = transformRecovery.localPosition;
+
+        transform.localPosition = Vector3.SmoothDamp(transform.localPosition, targetLocalPos, ref vel, knife.knifeIdleStateData.smoothTimeMovement);
+        transform.localPosition = Vector3.SmoothDamp(transform.localPosition, targetLocalPos, ref vel, knife.knifeIdleStateData.smoothTimeMovement);
         transform.rotation = Quaternion.Slerp(transform.rotation, transformRecovery.rotation, Time.deltaTime * knife.knifeIdleStateData.rotationSpeed);
         knife.knifeVisual.localRotation = Quaternion.Slerp(knife.knifeVisual.localRotation, knifeVisualTransformRecovery.localRotation, Time.deltaTime * knife.knifeIdleStateData.rotationSpeed);
     }
