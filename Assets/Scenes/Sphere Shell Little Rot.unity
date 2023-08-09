@@ -446,6 +446,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3956534783557323463, guid: 82cf7bb5fce2e2e428c98d92ced1e4d4,
         type: 3}
+      propertyPath: shellBehaviourBase
+      value: 
+      objectReference: {fileID: 11400000, guid: 1a318096b940add438efb2cf5a30074f,
+        type: 2}
+    - target: {fileID: 3956534783557323463, guid: 82cf7bb5fce2e2e428c98d92ced1e4d4,
+        type: 3}
       propertyPath: maxLastPeeledTriangleIndicesLength
       value: 350
       objectReference: {fileID: 0}

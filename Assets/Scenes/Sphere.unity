@@ -443,6 +443,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: KSC Normal
       objectReference: {fileID: 0}
+    - target: {fileID: 3956534783557323463, guid: 86717ff0e4e7e7547b8c216da005de03,
+        type: 3}
+      propertyPath: shellBehaviourBase
+      value: 
+      objectReference: {fileID: 11400000, guid: 78a8eba87b3deb9449b48becfa299456,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 86717ff0e4e7e7547b8c216da005de03, type: 3}
 --- !u!1001 &785495001

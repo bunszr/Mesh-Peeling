@@ -23,6 +23,7 @@ public abstract class CutterBase : MonoBehaviour, ICutterUpdater
 
     public float vertexOffset = 0;
     protected bool hasPeelingInFrame = false;
+    public ShellBehaviourBase shellBehaviourBase;
 
     public float PeelingTriangleIndexCount { get; protected set; }
     public bool HasCut => hasPeelingInFrame;
@@ -201,6 +202,7 @@ public abstract class CutterBase : MonoBehaviour, ICutterUpdater
         shellMeshCollision.meshFilter.mesh = mesh;
         shellMeshCollision.meshCollider.sharedMesh = mesh;
         shellMeshCollision.meshRenderer.SetPropertyBlock(peelingMesh.materialPropertyBlock);
+        shellBehaviourBase?.Execute(shellMeshCollision, this);
 
         newMeshVertices.Dispose();
         newMeshNormals.Dispose();

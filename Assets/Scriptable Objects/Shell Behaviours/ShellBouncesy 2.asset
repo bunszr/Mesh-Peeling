@@ -1,0 +1,15 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2185044b48dc3841a22142d3d8be63b, type: 3}
+  m_Name: ShellBouncesy 2
+  m_EditorClassIdentifier: 
+  physicMaterial: {fileID: 13400000, guid: 827f5f3b15423e642b9a21ef0366c9c7, type: 2}
