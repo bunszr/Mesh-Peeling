@@ -6,7 +6,7 @@ using UnityEngine;
 public class ShellControllerBase : MonoBehaviour
 {
     LevelDataHolder levelDataHolder;
-    public CutterBase cutterBase => levelDataHolder.cutterBase;
+    public CutterBase cutterBase;
     public IKnife _knife => levelDataHolder._knife;
     public Rotater rotater => levelDataHolder.rotater;
     public ShellMeshContainer shellMeshContainer => levelDataHolder.shellMeshContainer;

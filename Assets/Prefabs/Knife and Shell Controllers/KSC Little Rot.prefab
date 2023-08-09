@@ -112,6 +112,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d480a964db3f96d45908c602c542bc0e, type: 3}
+--- !u!114 &3956534783557323463 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3956534783554222639, guid: d480a964db3f96d45908c602c542bc0e,
+    type: 3}
+  m_PrefabInstance: {fileID: 5288168}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3916849e54f2ea546b9318944ce523ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6028282817915148175
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -208,6 +220,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9171c3af4b0fb12499635ecf2e3969b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cutterBase: {fileID: 3956534783557323463}
   CurrShellMesh: {fileID: 0}
   shellCenterT: {fileID: 2492207491464180777}
   shellAngleSpeedAdder: 5

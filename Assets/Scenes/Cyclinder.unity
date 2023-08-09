@@ -208,16 +208,6 @@ PrefabInstance:
       propertyPath: shellAngleSpeedAdder
       value: 20
       objectReference: {fileID: 0}
-    - target: {fileID: 1613840867, guid: 86717ff0e4e7e7547b8c216da005de03, type: 3}
-      propertyPath: prefab
-      value: 
-      objectReference: {fileID: 7229902805878310402, guid: 5a5d2b3e272f5ef4e8b3597f0aa21931,
-        type: 3}
-    - target: {fileID: 1613840867, guid: 86717ff0e4e7e7547b8c216da005de03, type: 3}
-      propertyPath: boundsAndTriangleIndicesData
-      value: 
-      objectReference: {fileID: 11400000, guid: 4b06da4ebfc645d4f8faad9c7a051c7c,
-        type: 2}
     - target: {fileID: 883686300009295055, guid: 86717ff0e4e7e7547b8c216da005de03,
         type: 3}
       propertyPath: m_RootOrder

@@ -29,8 +29,6 @@ public struct JobMeshPeeler : IJobFor
     [NativeDisableParallelForRestriction, WriteOnly] public NativeQueue<int>.ParallelWriter peeledTriangleIndicesAtOnce;
     [NativeDisableParallelForRestriction, WriteOnly] public NativeQueue<int>.ParallelWriter peelingTriIndicesQueue;
 
-    [NativeDisableParallelForRestriction, WriteOnly] public NativeArray<bool> hasInsadeResult;
-
     public void Execute(int index)
     {
         int triIndexA = triIndicesA[index] + 0;
@@ -65,7 +63,5 @@ public struct JobMeshPeeler : IJobFor
         peelingTriIndicesQueue.Enqueue(triIndexC);
 
         peeledTriangleIndicesAtOnce.Enqueue(triIndexA);
-
-        hasInsadeResult[0] = true;
     }
 }

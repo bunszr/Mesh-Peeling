@@ -173,24 +173,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 2231333026913494058}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1617031435
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2311071610925407172}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7891b4f0b47284c4b99e5678e52493c4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shellMeshCollisionPrefab: {fileID: -1930387975973678989, guid: 5a5d2b3e272f5ef4e8b3597f0aa21931,
-    type: 3}
-  shellControllerBase: {fileID: 0}
-  vertexOffset: 0
-  delay: 0.05
-  maxPeelingTriangle: 150
 --- !u!114 &2358072370068923305
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -205,6 +187,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   showInterctedBounds: 1
   gizmoColor: {r: 1, g: 0, b: 0, a: 1}
+--- !u!114 &3956534783554222639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2311071610925407172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3916849e54f2ea546b9318944ce523ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shellMeshCollisionPrefab: {fileID: -1930387975973678989, guid: 5a5d2b3e272f5ef4e8b3597f0aa21931,
+    type: 3}
+  shellControllerBase: {fileID: 0}
+  vertexOffset: 0
+  delay: 0.05
+  maxPeelingTriangle: 140
+  hasPressed: 0
+  hasPeelingInFrame: 0
 --- !u!4 &3872083632338902688 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3119637867814238858, guid: 455131372e14b0449919dcceb507418d,
