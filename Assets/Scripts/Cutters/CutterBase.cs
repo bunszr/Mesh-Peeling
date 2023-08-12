@@ -168,7 +168,7 @@ public abstract class CutterBase : MonoBehaviour, ICutterUpdater
 
     public void GenerateShellMeshFromShellMesh(NativeQueue<int> peeledTriangleIndicesAtOnce)
     {
-        if (peeledTriangleIndicesAtOnce.Count <= 3) return;
+        if (peeledTriangleIndicesAtOnce.Count <= 27) return;
 
         int count = peeledTriangleIndicesAtOnce.Count * 3;
         NativeArray<float3> newMeshVertices = new NativeArray<float3>(count, Allocator.TempJob);
