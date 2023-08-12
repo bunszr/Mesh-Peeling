@@ -34,7 +34,6 @@ public class KnifeIdleState : KnifeStateBase
         if (Vector3.SqrMagnitude(transform.localPosition - targetLocalPos) < .001f) targetLocalPos = transformRecovery.localPosition;
 
         transform.localPosition = Vector3.SmoothDamp(transform.localPosition, targetLocalPos, ref vel, knife.knifeIdleStateData.smoothTimeMovement);
-        transform.localPosition = Vector3.SmoothDamp(transform.localPosition, targetLocalPos, ref vel, knife.knifeIdleStateData.smoothTimeMovement);
         transform.rotation = Quaternion.Slerp(transform.rotation, transformRecovery.rotation, Time.deltaTime * knife.knifeIdleStateData.rotationSpeed);
         knife.knifeVisual.localRotation = Quaternion.Slerp(knife.knifeVisual.localRotation, knifeVisualTransformRecovery.localRotation, Time.deltaTime * knife.knifeIdleStateData.rotationSpeed);
     }
