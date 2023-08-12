@@ -7,11 +7,16 @@ public class ShellMeshPropertyBlockSetter : MonoBehaviour
     [SerializeField] bool hasUpdate = false;
 
     Renderer[] renderers;
+    PeelingMesh peelingMesh;
+
+    private void Awake()
+    {
+        renderers = GetComponentsInChildren<ShellMeshBase>(true).Select(x => x.GetComponent<Renderer>()).ToArray();
+    }
 
     private void Start()
     {
         PeelingMesh peelingMesh = GetComponentInParent<LevelDataHolder>().peelingMesh;
-        renderers = GetComponentsInChildren<ShellMeshBase>(true).Select(x => x.GetComponent<Renderer>()).ToArray();
         foreach (var ren in renderers)
         {
             ren.SetPropertyBlock(peelingMesh.materialPropertyBlock);
@@ -24,7 +29,6 @@ public class ShellMeshPropertyBlockSetter : MonoBehaviour
         {
             foreach (var ren in renderers)
             {
-                PeelingMesh peelingMesh = GetComponentInParent<LevelDataHolder>().peelingMesh;
                 ren.SetPropertyBlock(peelingMesh.materialPropertyBlock);
             }
         }
