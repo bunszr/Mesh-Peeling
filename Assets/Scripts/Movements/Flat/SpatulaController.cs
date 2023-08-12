@@ -13,6 +13,6 @@ public class SpatulaController : MonoBehaviour, IKnife
         Vector3 oldPos = transform.localPosition;
         transform.localPosition += transform.forward * speed * Time.deltaTime;
         Velocity = Vector3.Distance(transform.localPosition, oldPos) / Time.deltaTime;
-        transform.rotation *= Quaternion.AngleAxis(Time.deltaTime * turnSpeed, Vector3.up);
+        transform.rotation *= Quaternion.AngleAxis(Time.deltaTime * turnSpeed * Input.GetAxis("Horizontal"), Vector3.up);
     }
 }
