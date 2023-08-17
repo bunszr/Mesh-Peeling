@@ -6,4 +6,9 @@ public class ShellMeshCollision : MonoBehaviour
     public MeshFilter meshFilter;
     public MeshRenderer meshRenderer;
     public MeshCollider meshCollider;
+
+    private void Awake()
+    {
+        meshRenderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.TwoSided;
+    }
 }
